@@ -75,7 +75,7 @@ module.exports = function() {
       type: 'web',
       web: {
         host: '0.0.0.0',
-        port: 10305
+        port: 10306
       }
     }
   };

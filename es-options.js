@@ -16,6 +16,7 @@ module.exports = {
       'public': true,
       'category': true,
       'user_types': true,
+      'dojo_id': true,
       'status':true,
       'created_at': true,
       'created_by': true

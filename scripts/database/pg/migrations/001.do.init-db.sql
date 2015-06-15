@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS cd_events
   public boolean,
   category character varying,
   user_types character varying[],
+  dojo_id character varying,
   status character varying,
   created_at timestamp with time zone,
   created_by character varying,

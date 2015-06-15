@@ -2,7 +2,7 @@
 
 var util = require('util');
 var seneca = require('seneca')();
-var options = require('../config/config');
+var options = require('../config/config')();
 
 
 seneca.options(options);

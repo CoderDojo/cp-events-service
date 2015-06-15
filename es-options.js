@@ -15,7 +15,8 @@ module.exports = {
       'capacity': true,
       'public': true,
       'category': true,
-      'age_group': true,
+      'user_types': true,
+      'dojo_id': true,
       'status':true,
       'created_at': true,
       'created_by': true

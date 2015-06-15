@@ -20,16 +20,9 @@ function callback(err, result) {
 }
 
 
-var eventId = args[0];
-
-if (!eventId) {
-    throw 'Event Id must be specified';
-}
-
 seneca.act({
         role: 'cd-events',
-        cmd: 'getEvent',
-        id: eventId
+        cmd: 'listEvents'
     },
     callback
 );

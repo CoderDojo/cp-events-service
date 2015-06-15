@@ -11,12 +11,12 @@ seneca.client();
 
 
 function callback(err, result) {
-    if (err) {
-        return console.error(err);
-    }
+  if (err) {
+    return console.error(err);
+  }
 
-    var msg = util.inspect(result, true, null, true);
-    console.log('Get event:', msg);
+  var msg = util.inspect(result, true, null, true);
+  console.log(msg);
 }
 
 
@@ -26,10 +26,18 @@ if (!eventId) {
     throw 'Event Id must be specified';
 }
 
+
+var event = {
+  id: eventId,
+  name: 'Updated event name'
+};
+
+
 seneca.act({
-        role: 'cd-events',
-        cmd: 'getEvent',
-        id: eventId
-    },
-    callback
+    role: 'cd-events',
+    cmd: 'updateEvent',
+    eventInfo: event
+  },
+  callback
 );
+

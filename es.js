@@ -13,10 +13,8 @@ function cmd_search(args, done) {
   if(!args.type){
     args.type = 'cd_events';
   }
-  seneca.act('role:search,cmd:search', args, function(err, result) {
-    if(err) {
-      return done(err);
-    }
+  seneca.act('role:search,cmd:search', args, function(err, result) {  
+    if(err) return done(err);
     return done(null, result.hits);
   });
 }

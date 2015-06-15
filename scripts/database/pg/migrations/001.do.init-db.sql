@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS cd_events
   capacity integer,
   public boolean,
   category character varying,
-  age_group character varying,
+  user_types character varying[],
   status character varying,
   created_at timestamp with time zone,
   created_by character varying,

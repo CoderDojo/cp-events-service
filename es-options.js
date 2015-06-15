@@ -15,7 +15,7 @@ module.exports = {
       'capacity': true,
       'public': true,
       'category': true,
-      'age_group': true,
+      'user_types': true,
       'status':true,
       'created_at': true,
       'created_by': true

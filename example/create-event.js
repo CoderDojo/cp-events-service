@@ -19,7 +19,7 @@ function callback(err, result) {
 }
 
 
-var event = {
+var eventData = {
     name: 'Event name',
     date: new Date(2015, 9, 3, 17, 30),
     location: 'Event location',
@@ -34,10 +34,4 @@ var event = {
 };
 
 
-seneca.act({
-        role: 'cd-events',
-        cmd: 'createEvent',
-        eventInfo: event
-    },
-    callback
-);
+seneca.act({ role: 'cd-events', cmd: 'createEvent', eventInfo: eventData }, callback);

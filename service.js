@@ -14,6 +14,6 @@ seneca.options(config);
 seneca.use('postgresql-store', config["postgresql-store"]);
 seneca.use('elasticsearch', _.defaults(config["elasticsearch"], ESOptions));
 seneca.use(require('./es.js'));
-seneca.use(require('./lib/cd-events'), { limits: config.limits});
+seneca.use(require('./lib/cd-events'));
 
 seneca.listen();

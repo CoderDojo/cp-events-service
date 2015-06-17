@@ -4,7 +4,9 @@ CREATE TABLE IF NOT EXISTS cd_events
   id character varying NOT NULL,
   name character varying,
   date timestamp with time zone,
-  location character varying,
+  country json,
+  city json,
+  address character varying,
   description character varying,
   capacity integer,
   public boolean,
@@ -12,6 +14,7 @@ CREATE TABLE IF NOT EXISTS cd_events
   user_types character varying[],
   dojo_id character varying,
   status character varying,
+  invites json[],
   created_at timestamp with time zone,
   created_by character varying,
   CONSTRAINT pk_cd_events_id PRIMARY KEY (id)

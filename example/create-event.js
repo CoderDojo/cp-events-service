@@ -21,12 +21,11 @@ function callback(err, result) {
 
 var eventData = {
     name: 'Event name',
-    date: new Date(2015, 9, 3, 17, 30),
-    location: 'Event location',
+    date: new Date(2015, 9, 10, 17, 30),
     description: 'Event description',
     capacity: 40,
     public: true,
-    user_types: ['<13'],
+    user_types: ['attendee-u13'],
     category: 'JavaScript',
     status: 'active',
     created_at: new Date(),

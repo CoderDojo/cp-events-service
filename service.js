@@ -16,4 +16,6 @@ seneca.use('elasticsearch', _.defaults(config["elasticsearch"], ESOptions));
 seneca.use(require('./es.js'));
 seneca.use(require('./lib/cd-events'));
 
-seneca.listen();
+seneca.listen()
+	.client({type: 'web', host: process.env.TARGETIP || '127.0.0.1', port: 10301, pin: 'role:cd-dojos,cmd:*'})
+	.client({type: 'web', host: process.env.TARGETIP || '127.0.0.1', port: 10303, pin: 'role:cd-users,cmd:*'});

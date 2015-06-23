@@ -9,7 +9,6 @@ function Elasticsearch() {
 
 function cmd_search(args, done) {
   var seneca = this;
-
   if(!args.type){
     args.type = 'cd_events';
   }

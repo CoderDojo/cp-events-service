@@ -33,4 +33,4 @@ var eventData = {
 };
 
 
-seneca.act({ role: 'cd-events', cmd: 'createEvent', eventInfo: eventData }, callback);
+seneca.act({ role: 'cd-events', cmd: 'saveEvent', eventInfo: eventData }, callback);

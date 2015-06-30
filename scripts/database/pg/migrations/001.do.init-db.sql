@@ -9,14 +9,15 @@ CREATE TABLE IF NOT EXISTS cd_events
   capacity integer,
   created_at timestamp with time zone,
   created_by character varying,
-  date timestamp with time zone,
+  type character varying,
+  dates timestamp with time zone[],
   description character varying,
   dojo_id character varying,
   invites json[],
   position json,
   public boolean,
   status character varying,
-  user_types character varying[],
+  user_type character varying,
   CONSTRAINT pk_cd_events_id PRIMARY KEY (id)
 )
 WITH (
@@ -33,6 +34,19 @@ CREATE TABLE IF NOT EXISTS cd_applications
   status character varying,
   user_id character varying,
   CONSTRAINT pk_cd_applications_id PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+
+CREATE TABLE IF NOT EXISTS cd_attendence
+(
+  id character varying NOT NULL,
+  user_id character varying,
+  event_id character varying,
+  event_date character varying,
+  attended boolean,
+  CONSTRAINT pk_cd_attendence PRIMARY KEY (id)
 )
 WITH (
   OIDS=FALSE

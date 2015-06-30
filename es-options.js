@@ -9,7 +9,7 @@ module.exports = {
         index: 'not_analyzed'
       },
       'name': true,
-      'date': true,
+      'dates': true,
       'location': true,
       'description': true,
       'capacity': true,
@@ -36,6 +36,20 @@ module.exports = {
       'date_of_birth': true,
       'attended': true,
       'status': true
+    }
+  },
+  {
+    base: 'cd',
+    name: 'attendence',
+    indexedAttributes: {
+      'id': {
+        type: 'string',
+        index: 'not_analyzed'
+      },
+      'user_id': true,
+      'event_id': true,
+      'event_date': true,
+      'attended': true
     }
   }]
 };

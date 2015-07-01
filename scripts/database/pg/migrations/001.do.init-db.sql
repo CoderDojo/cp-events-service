@@ -28,7 +28,6 @@ CREATE TABLE IF NOT EXISTS cd_applications
 (
   id character varying NOT NULL,
   name character varying,
-  attended boolean,
   date_of_birth date,
   event_id character varying,
   status character varying,
@@ -39,14 +38,14 @@ WITH (
   OIDS=FALSE
 );
 
-CREATE TABLE IF NOT EXISTS cd_attendence
+CREATE TABLE IF NOT EXISTS cd_attendance
 (
   id character varying NOT NULL,
   user_id character varying,
   event_id character varying,
   event_date character varying,
   attended boolean,
-  CONSTRAINT pk_cd_attendence PRIMARY KEY (id)
+  CONSTRAINT pk_cd_attendance PRIMARY KEY (id)
 )
 WITH (
   OIDS=FALSE

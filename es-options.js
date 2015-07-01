@@ -40,7 +40,7 @@ module.exports = {
   },
   {
     base: 'cd',
-    name: 'attendence',
+    name: 'attendance',
     indexedAttributes: {
       'id': {
         type: 'string',

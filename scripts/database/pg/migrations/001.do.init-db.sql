@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS cd_attendance
   id character varying NOT NULL,
   user_id character varying,
   event_id character varying,
-  event_date character varying,
+  event_date timestamp with time zone,
   attended boolean,
   CONSTRAINT pk_cd_attendance PRIMARY KEY (id)
 )

@@ -41,13 +41,13 @@ module.exports = function() {
     'email-notifications': {
       sendemail:true,
       email: {
-        'invite-user':{
+        'invite-user-en_US':{
           subject:'New Dojo Invitation'
         },
-        'user-request-to-join':{
+        'user-request-to-join-en_US':{
           subject:'New Request to join your Dojo'
         },
-        'user-left-dojo': {
+        'user-left-dojo-en_US': {
           subject:'A user has left your Dojo'
         }
       }

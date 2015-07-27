@@ -1,14 +1,15 @@
-FROM node:0.10
+FROM mhart/alpine-node:0.10
 MAINTAINER nearForm <info@nearform.com>
 
-# Reuse module cache to speed up build
-VOLUME /root/.npm
-
-RUN apt-get update
-RUN apt-get install -y postgresql-client
-
-RUN mkdir -p /usr/src/app
-ADD . /usr/src/app
+#RUN apk-install git make gcc g++ python postgresql-client
+RUN apk-install git 
+  
+RUN mkdir -p /usr/src/app /usr/src/app/lib /usr/src/app/config /usr/src/app/scripts
 WORKDIR /usr/src/app
 
-RUN npm install
+COPY package.json /usr/src/app/
+RUN npm install --production && rm -rf /root/.npm
+COPY config /usr/src/app/config/
+COPY scripts /usr/src/app/scripts/
+COPY lib /usr/src/app/lib/
+COPY *.js /usr/src/app/  

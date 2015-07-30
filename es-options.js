@@ -1,5 +1,6 @@
 module.exports = {
   refreshOnSave : true,
+  fetchEntitesFromDB : true,
   entities: [{
     base: 'cd',
     name: 'events',

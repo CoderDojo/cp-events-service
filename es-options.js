@@ -16,11 +16,11 @@ module.exports = {
       'capacity': true,
       'public': true,
       'category': true,
-      'user_types': true,
-      'dojo_id': true,
+      'userTypes': true,
+      'dojoId': true,
       'status':true,
-      'created_at': true,
-      'created_by': true
+      'createdAt': true,
+      'createdBy': true
     }
   },
   {
@@ -31,10 +31,10 @@ module.exports = {
         type: 'string',
         index: 'not_analyzed'
       },
-      'event_id': true,
-      'user_id': true,
+      'eventId': true,
+      'userId': true,
       'name': true,
-      'date_of_birth': true,
+      'dateOfBirth': true,
       'attended': true,
       'status': true
     }
@@ -47,9 +47,9 @@ module.exports = {
         type: 'string',
         index: 'not_analyzed'
       },
-      'user_id': true,
-      'event_id': true,
-      'event_date': true,
+      'userId': true,
+      'eventId': true,
+      'eventDate': true,
       'attended': true
     }
   }]

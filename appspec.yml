@@ -1,0 +1,31 @@
+version: 0.0
+os: linux
+files:
+  - source: deploy/cp-events-service.conf
+    destination: /etc/init/
+  - source: deploy/cp-events-service.env
+    destination: /etc/zen
+  - source: /
+    destination: /opt/zen/cp-events-service
+
+permissions:
+  - object: /opt/zen/cp-events-service
+    owner: ubuntu
+    group: ubuntu
+  - object: /etc/zen/cp-events-service.env
+    owner: ubuntu
+    group: ubuntu
+  
+hooks:
+  ApplicationStop:
+    - location: deploy/stop-server.sh
+      timeout: 300
+      runas: root
+
+  ApplicationStart:
+    - location: deploy/start-server.sh
+      timeout: 300
+      runas: root
+
+  
+

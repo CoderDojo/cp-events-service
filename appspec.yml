@@ -3,8 +3,6 @@ os: linux
 files:
   - source: deploy/cp-events-service.conf
     destination: /etc/init/
-  - source: deploy/cp-events-service.env
-    destination: /etc/zen
   - source: /
     destination: /opt/zen/cp-events-service
 

@@ -10,9 +10,6 @@ permissions:
   - object: /opt/zen/cp-events-service
     owner: ubuntu
     group: ubuntu
-  - object: /etc/zen/cp-events-service.env
-    owner: ubuntu
-    group: ubuntu
   
 hooks:
   ApplicationStop:

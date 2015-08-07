@@ -95,6 +95,9 @@ module.exports = function() {
       }
     },
     timeout: 120000,
+    debug: {
+      undead: true
+    },
     log: log()
   };
 }

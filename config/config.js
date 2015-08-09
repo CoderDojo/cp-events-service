@@ -94,6 +94,10 @@ module.exports = function() {
         port: 10306
       }
     },
+    timeout: 120000,
+    debug: {
+      undead: true
+    },
     log: log()
   };
 }

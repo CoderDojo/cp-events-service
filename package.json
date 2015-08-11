@@ -30,7 +30,7 @@
     "moment": "2.10.3",
     "newrelic": "1.21.1",
     "postgrator": "2.2.0",
-    "seneca": "0.6.1",
+    "seneca": "git://github.com/thekemkid/seneca.git",
     "seneca-postgresql-store": "0.7.0",
     "yargs": "3.7.2"
   },

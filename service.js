@@ -1,6 +1,6 @@
 'use strict';
-process.setMaxListeners(0);
-require('events').EventEmitter.prototype._maxListeners = 100;
+/*process.setMaxListeners(0);
+require('events').EventEmitter.prototype._maxListeners = 100;*/
 
 if (process.env.NEW_RELIC_ENABLED === "true") require('newrelic');
 
@@ -22,7 +22,7 @@ require('./migrate-psql-db.js')(function (err) {
   console.log("Migrations ok");
 
   seneca.listen()
-	  .client({type: 'tcp', port: 10301, pin: 'role:cd-dojos,cmd:*'})
-	  .client({type: 'tcp', port: 10303, pin: 'role:cd-users,cmd:*'})
-	  .client({type: 'tcp', port: 10303, pin: 'role:cd-profiles,cmd:*'});
+	  .client({type: 'web', host: process.env.DOCKER_HOST_IP || process.env.TARGETIP || '127.0.0.1', port: 10301, pin: 'role:cd-dojos,cmd:*'})
+	  .client({type: 'web', host: process.env.DOCKER_HOST_IP || process.env.TARGETIP || '127.0.0.1', port: 10303, pin: 'role:cd-users,cmd:*'})
+	  .client({type: 'web', host: process.env.DOCKER_HOST_IP || process.env.TARGETIP || '127.0.0.1', port: 10303, pin: 'role:cd-profiles,cmd:*'});
 });

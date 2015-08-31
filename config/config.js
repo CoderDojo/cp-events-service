@@ -88,8 +88,8 @@ module.exports = function() {
       }
     },
     transport: {
-      type: 'tcp',
-      tcp: {
+      type: 'web',
+      web: {
         port: 10306
       }
     },

@@ -1,6 +1,4 @@
 'use strict';
-process.setMaxListeners(0);
-require('events').EventEmitter.prototype._maxListeners = 100;
 
 if (process.env.NEW_RELIC_ENABLED === "true") require('newrelic');
 

@@ -32,7 +32,8 @@
     "postgrator": "2.2.0",
     "seneca": "git://github.com/thekemkid/seneca.git",
     "seneca-postgresql-store": "0.7.0",
-    "yargs": "3.7.2"
+    "yargs": "3.7.2",
+    "json2csv": "2.11.0"
   },
   "homepage": "https://github.com/CoderDojo/cp-events-service"
 }

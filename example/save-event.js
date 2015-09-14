@@ -25,11 +25,11 @@ var eventData = {
     description: 'Event description',
     capacity: 40,
     public: true,
-    user_types: ['attendee-u13'],
+    userTypes: ['attendee-u13'],
     category: 'JavaScript',
     status: 'active',
-    created_at: new Date(),
-    created_by: 'user id'
+    createdAt: new Date(),
+    createdBy: 'user id'
 };
 
 

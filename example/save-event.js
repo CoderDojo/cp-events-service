@@ -24,10 +24,11 @@ var eventData = {
     date: new Date(2015, 9, 10, 17, 30),
     description: 'Event description',
     public: true,
+    userTypes: ['attendee-u13'],
     category: 'JavaScript',
     status: 'active',
-    created_at: new Date(),
-    created_by: 'user id'
+    createdAt: new Date(),
+    createdBy: 'user id'
 };
 
 

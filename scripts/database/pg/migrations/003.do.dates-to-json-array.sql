@@ -17,10 +17,7 @@ DO $$
           SELECT unnest(dates) as "startTime" from cd_events ev where ev.id = e.id ) s) t ) );
 
           ALTER TABLE cd_events DROP COLUMN dates;
-          ALTER TABLE cd_events ADD COLUMN dates json[];
-
-          UPDATE cd_events SET dates = dates_json;
-          ALTER TABLE cd_events DROP COLUMN dates_json;
+          ALTER TABLE cd_events RENAME COLUMN dates_json TO dates;
         ELSE
            RAISE NOTICE 'column dates already is already of type json[].';
            END IF;

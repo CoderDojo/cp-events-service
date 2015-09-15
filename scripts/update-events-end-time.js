@@ -17,16 +17,18 @@ seneca.use(require('../lib/cd-events'));
 seneca.ready(function () {
 
   function addEventsEndTime(cb) {
-    var eventsEntity = seneca.make$('cd/events');
     var applicationsEntity = seneca.make$('cd/applications');
     var attendanceEntity = seneca.make$('cd/attendance');
     async.waterfall([
       function (done) {
+        var eventsEntity = seneca.make$('cd/events');
+
         eventsEntity.list$({limit$: 'NULL'}, done);
       },
       function (events, done) {
         //remove all events from DB
         var ids = _.pluck(events, 'id');
+        var eventsEntity = seneca.make$('cd/events');
         async.each(ids, function (id, done) {
           eventsEntity.remove$({id: id}, done);
         }, done(null, events));
@@ -53,7 +55,11 @@ seneca.ready(function () {
 
         async.eachSeries(events, function (event, callback) {
           var eventDates = [];
-          async.each(event.dates, function (date, done) {
+
+          var oldEventId = event.id;
+          delete event.id; // if id is not deleted entity.save$ doesn't work
+
+          async.eachSeries(event.dates, function (date, done) {
             console.log('date: ' + date.toISOString());
             if (_.has(date, 'startTime') && _.has(date, 'endTime')) {
               eventDates.push(eventDate);
@@ -71,8 +77,9 @@ seneca.ready(function () {
             if (err) return callback(err);
 
             event.dates = eventDates;
-            var oldEventId = _.clone(event.id);
-            delete event.id; // if id is not deleted entity.save$ doesn't work
+
+            var eventsEntity = seneca.make$('cd/events');
+
             eventsEntity.save$(event, function (err, response) {
               if (err) return callback(err);
               // amend existing applications records event_id values to have the new id;
@@ -87,8 +94,9 @@ seneca.ready(function () {
                   attendanceEntity.list$({eventId: oldEventId}, function (err, list) {
                     if (err) return callback(err);
                     async.eachSeries(list, function (attendance, callback) {
+                      var utcOffset = moment().utcOffset();
                       attendance.eventId = response.id;
-                      attendance.eventDate = moment.utc(attendance.eventDate).toDate();
+                      attendance.eventDate = moment.utc(attendance.eventDate).subtract(utcOffset, 'minutes').toDate();
                       attendanceEntity.save$(attendance, callback);
                     }, callback)
                   })

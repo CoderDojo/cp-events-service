@@ -18,8 +18,8 @@ seneca.ready(function() {
 
   function addEventsEndTime(cb) {
     var eventsEntity = seneca.make$('cd/events');
-    var applicationsEntity = seneca.make$('cd/events');
-    var attendanceEntity = seneca.make$('cd/events');
+    var applicationsEntity = seneca.make$('cd/applications');
+    var attendanceEntity = seneca.make$('cd/attendance');
     async.waterfall([
       function(done) {
         eventsEntity.list$({limit$:'NULL'}, done);

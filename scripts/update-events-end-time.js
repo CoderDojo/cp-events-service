@@ -60,7 +60,7 @@ seneca.ready(function() {
                 } else {
                   var amendedEventDate = {
                     startTime: moment.utc(date).toDate(),
-                    endTime: moment(date).add(2, 'hours').toDate()
+                    endTime: moment.utc(date).add(2, 'hours').toDate()
                   };
 
                   eventDates.push(amendedEventDate);

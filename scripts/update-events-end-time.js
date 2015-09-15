@@ -18,6 +18,8 @@ seneca.ready(function() {
 
   function addEventsEndTime(cb) {
     var eventsEntity = seneca.make$('cd/events');
+    var applicationsEntity = seneca.make$('cd/events');
+    var attendanceEntity = seneca.make$('cd/events');
     async.waterfall([
       function(done) {
         eventsEntity.list$({limit$:'NULL'}, done);
@@ -66,11 +68,32 @@ seneca.ready(function() {
                   eventDates.push(amendedEventDate);
                   console.log('amended event date: ' + JSON.stringify(amendedEventDate));
                 }
-
-
+                
                 event.dates = eventDates;
-                delete event.id;
-                eventsEntity.save$(event, done);
+                var oldEventId = _.clone(event.id);
+                delete event.id; // if id is not deleted entity.save$ doesn't work
+                eventsEntity.save$(event, function (err, response) {
+                  if (err) return done(err);
+                  // amend existing applications records event_id values to have the new id;
+                  applicationsEntity.list$({eventId: oldEventId}, function (err, list) {
+                    if (err) return done(err);
+                    async.eachSeries(list, function (application, callback) {
+                      application.eventId = response.id;
+                      applicationsEntity.save$(application, callback);
+                    }, function (err) {
+                      // amend existing attendance records
+                      if (err) return done(err);
+                      attendanceEntity.list$({eventId: oldEventId}, function (err, list) {
+                        if (err) return done(err);
+                        async.eachSeries(list, function (attendance, callback) {
+                          attendance.eventId = response.id;
+                          attendance.eventDate = moment.utc(attendance.eventDate).toDate();
+                          attendanceEntity.save$(attendance, callback);
+                        }, done)
+                      })
+                    })
+                  })
+                });
               }, callback);
             } else {
               console.log('is not array');

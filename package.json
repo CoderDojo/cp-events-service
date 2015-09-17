@@ -4,7 +4,7 @@
   "description": "seneca microservice for events",
   "main": "service.js",
   "scripts": {
-    "lint": "./node_modules/.bin/semistandard *.js",
+    "lint": "./node_modules/.bin/semistandard *.js lib/*.js",
     "test": "echo \"Error: no test specified\""
   },
   "precommit": {

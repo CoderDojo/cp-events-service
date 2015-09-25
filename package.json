@@ -5,7 +5,7 @@
   "main": "service.js",
   "scripts": {
     "lint": "./node_modules/.bin/semistandard *.js lib/*.js config/config.js",
-    "test": "echo \"Error: no test specified\""
+    "test": "npm run lint"
   },
   "precommit": {
     "tasks": [

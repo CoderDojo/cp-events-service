@@ -23,7 +23,6 @@ var eventData = {
     name: 'Event name',
     date: new Date(2015, 9, 10, 17, 30),
     description: 'Event description',
-    capacity: 40,
     public: true,
     userTypes: ['attendee-u13'],
     category: 'JavaScript',

@@ -7,11 +7,9 @@
     "lint": "./node_modules/.bin/semistandard *.js lib/*.js config/config.js",
     "test": "npm run lint"
   },
-  "precommit": {
-    "tasks": [
-      "npm run lint"
-    ]
-  },
+  "pre-commit": [
+    "test"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/CoderDojo/cp-events-service.git"
@@ -23,9 +21,7 @@
   },
   "devDependencies": {
     "chai": "2.2.0",
-    "es6-promise": "3.0.2",
-    "istanbul": "0.3.14",
-    "mocha": "2.2.1",
+    "pre-commit": "1.1.2",
     "semistandard": "7.0.2"
   },
   "dependencies": {
@@ -38,12 +34,10 @@
     "moment": "2.10.3",
     "newrelic": "1.21.1",
     "postgrator": "2.2.0",
-    "precommit": "1.1.5",
-    "seneca": "git://github.com/thekemkid/seneca.git",
+    "seneca": "0.7.2",
     "seneca-postgresql-store": "0.7.0",
     "yargs": "3.7.2",
-    "shortid": "2.2.2",
-    "json2csv": "2.11.0"
+    "shortid": "2.2.2"
   },
   "homepage": "https://github.com/CoderDojo/cp-events-service"
 }

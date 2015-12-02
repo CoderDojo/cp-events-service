@@ -1,0 +1,26 @@
+[
+  {
+    "id": 10,
+    "name": "Test Profile",
+    "userId": "1000",
+    "alias": "Test Alias",
+    "country": {
+      "countryName": "Ireland",
+      "countryNumber": "372",
+      "continent": "EU",
+      "alpha2": "IE",
+      "alpha3": "IRL"
+    },
+    "private": false,
+    "place": {
+      "nameWithHierarchy": "Dublin"
+    },
+    "address": "Dublin Street",
+    "email": "email_cd@coderdojo.com",
+    "phone": "1234567890",
+    "continent": "EU",
+    "alpha2": "IE",
+    "alpha3": "IRL",
+    "userType": "champion"
+  }
+]

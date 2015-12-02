@@ -1,0 +1,41 @@
+[
+  {
+    "id": 120,
+    "admin1Code": 23,
+    "admin1Name": "Person",
+    "alpha2": "RO",
+    "alpha3": "ROU",
+    "continent": "EU",
+    "coordinates": "47.15615451080752,27.589919594697676",
+    "country": {
+      "countryName": "Romania",
+      "geonameId": 798549,
+      "alpha2": "RO"
+    },
+    "countryName": "Romania",
+    "countryNumber": 642,
+    "deleted": 0,
+    "ebId": "https://www.google.com",
+    "email": "person@coderdojo.com",
+    "location": "Address of Place",
+    "mailingList": 0,
+    "mysqlDojoId": 1330,
+    "name": "Person @ Somewhere",
+    "needMentors": 0,
+    "notes": "A laptop is needed.",
+    "place": {
+      "name": "SomePlace",
+      "geonameId": "675810"
+    },
+    "placeGeonameId": 675810,
+    "placeName": "SomePlace",
+    "private": 0,
+    "state": {
+      "toponymName": "SomeCounty"
+    },
+    "time": "Saturday 12pm - 3pm",
+    "verified": 1,
+    "stage": 2,
+    "dojoLeadId": 1000
+  }
+]

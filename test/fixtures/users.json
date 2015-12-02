@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1000,
+    "username": "test1",
+    "email": "test1@example.com",
+    "level": 0,
+    "activated": 1,
+    "banned": 0,
+    "banReason": null
+  },
+  {
+    "id": 1001,
+    "username": "test2",
+    "email": "test2@example.com",
+    "level": 0,
+    "activated": 1,
+    "banned": 0,
+    "banReason": null
+  }
+]

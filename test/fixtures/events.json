@@ -1,0 +1,30 @@
+[
+  {
+    "name": "test event 1",
+    "country": {
+      "countryName": "Italy",
+      "alpha2": "IT"
+    },
+    "city": {
+      "nameWithHierarchy": "Agordo"
+    },
+    "address": "some address in Italy",
+    "type": "one-off",
+    "description": "test event description",
+    "dojoId": 120,
+    "position": {
+      "lat": 45,
+      "lng": 12
+    },
+    "public": true,
+    "status": "published",
+    "recurringType": "weekly",
+    "dates": [
+      {
+        "startTime": null,
+        "endTime": null
+      }
+    ],
+    "ticketApproval": false
+  }
+]

@@ -36,7 +36,7 @@
     "moment": "2.10.3",
     "newrelic": "1.21.1",
     "pg": "4.4.0",
-    "postgrator": "2.2.0",
+    "postgrator": "2.5.0",
     "seneca": "0.7.2",
     "seneca-postgresql-store": "0.7.0",
     "yargs": "3.7.2",

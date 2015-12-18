@@ -4,7 +4,7 @@ if (process.env.NEW_RELIC_ENABLED === 'true') require('newrelic');
 
 var config = require('./config/config.js')();
 var seneca = require('seneca')(config);
-var store = require('seneca-postgres-store');
+var store = require('seneca-postgresql-store');
 
 seneca.log.info('using config', JSON.stringify(config, null, 4));
 seneca.options(config);

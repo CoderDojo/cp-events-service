@@ -38,7 +38,7 @@
     "pg": "4.4.0",
     "postgrator": "2.5.0",
     "seneca": "0.7.2",
-    "seneca-postgresql-store": "git://github.com/josmas/seneca-postgres-store.git#underscore_dep",
+    "seneca-postgresql-store": "1.1.1",
     "yargs": "3.7.2",
     "shortid": "2.2.2"
   },

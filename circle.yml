@@ -1,0 +1,25 @@
+machine:
+  node:
+    version: 0.10.40
+  environment:
+    LANG: en_US.utf8
+dependencies:
+  override:
+    - npm install
+test:
+  override:
+    - npm run test
+deployment:
+  production:
+    branch: master
+    codedeploy:
+      cp-events-service:
+        application_root: /
+        region: eu-west-1
+        revision_location:
+          revision_type: S3
+          s3_location:
+            bucket: zen-deployments
+            key_pattern: applications/cp-events-service-ci-{BUILD_NUM}.zip
+        deployment_group: prod-zen
+        deployment_config: CodeDeployDefault.OneAtATime

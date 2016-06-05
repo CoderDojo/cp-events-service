@@ -5,12 +5,14 @@ if (process.env.NEW_RELIC_ENABLED === 'true') require('newrelic');
 var config = require('./config/config.js')();
 var seneca = require('seneca')(config);
 var store = require('seneca-postgresql-store');
+var log = require('cp-logs')({name: 'cp-events-service', level: 'warn'});
+config.log = log.log;
 
 seneca.log.info('using config', JSON.stringify(config, null, 4));
 seneca.options(config);
 
 seneca.use(store, config['postgresql-store']);
-seneca.use(require('./lib/cd-events'));
+seneca.use(require('./lib/cd-events'), {logger: log.logger});
 seneca.use(require('cp-permissions-plugin'), {
   config: __dirname + '/config/permissions'
 });

@@ -9,6 +9,7 @@ module.exports = function () {
       	cmd: 'is_ticketing_admin'
       }]
     }],
+    //  TODO: verify this one, seems meh to me
     'getEvent': [{
       role: 'basic-user'
     }],
@@ -46,8 +47,13 @@ module.exports = function () {
     'saveApplication': [{
       role: 'basic-user'
     }],
+    //  TODO: straighten?
     'userDojosEvents': [{
-      role: 'basic-user'
+      role: 'basic-user',
+      customValidator: [{
+        role: 'cd-dojos',
+        cmd: 'belongs_to_dojo'
+      }]
     }],
     'ticketTypes': [{
       role: 'basic-user'

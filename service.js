@@ -11,7 +11,7 @@ seneca.options(config);
 
 seneca.use(store, config['postgresql-store']);
 seneca.use(require('./lib/cd-events'));
-seneca.use(require('cp-permissions'), {
+seneca.use(require('cp-permissions-plugin'), {
   config: __dirname + '/config/permissions'
 });
 

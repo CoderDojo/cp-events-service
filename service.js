@@ -11,6 +11,9 @@ seneca.options(config);
 
 seneca.use(store, config['postgresql-store']);
 seneca.use(require('./lib/cd-events'));
+seneca.use(require('cp-permissions'), {
+  config: __dirname + '/config/permissions'
+});
 
 require('./migrate-psql-db.js')(function (err) {
   if (err) {

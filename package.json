@@ -15,9 +15,9 @@
     "url": "https://github.com/CoderDojo/cp-events-service.git"
   },
   "author": "",
-  "license": "BSD",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/CoderDojo/cp-events-service/issues"
+    "url": "https://github.com/CoderDojo/community-platform/issues"
   },
   "devDependencies": {
     "chai": "2.2.0",

@@ -11,6 +11,7 @@ var seneca = require('seneca')(),
   _ = require('lodash'),
   async = require('async'),
   sinon = require('sinon'),
+  logger = require('cp-logs-lib')({}).logger,
   lab = exports.lab = require('lab').script();
 
 var role = "cd-events";
@@ -29,7 +30,7 @@ seneca
  .use(require(__dirname + '/stubs/cd-profiles.js'))
  .use(require(__dirname + '/stubs/cd-dojos.js'))
  .use(require(__dirname + '/stubs/email-notifications.js'))*/
-  .use(require(__dirname + '/../lib/cd-events'));
+  .use(require(__dirname + '/../lib/cd-events', {logger: logger}));
 
 var eventsEntity = seneca.make$('cd/events');
 var usersEntity = seneca.make$('sys/user');
@@ -126,7 +127,7 @@ lab.experiment('Events Microservice test', function () {
 
       events[0].dates[0].startTime = now.setDate(now.getDate() + 5);
       events[0].dates[0].endTime = now.setTime(now.getTime() + (3 * 60 * 60 * 1000));
-      
+
       seneca.act({
         role: role,
         cmd: 'saveEvent',
@@ -160,4 +161,3 @@ lab.experiment('Events Microservice test', function () {
   });
 
 });
-

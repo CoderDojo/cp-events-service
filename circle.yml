@@ -9,6 +9,8 @@ dependencies:
 test:
   override:
     - npm run test
+  post:
+    - curl -sSL https://download.sourceclear.com/ci.sh | bash
 deployment:
   production:
     branch: master

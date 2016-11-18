@@ -1,0 +1,27 @@
+[
+  {
+    "eventName": "test event 1",
+    "userEmail": "parent1@example.com",
+    "ticketName": "ticket1-1"
+  },
+  {
+    "eventName": "test event 1",
+    "userName": "child1",
+    "ticketName": "ticket1-2"
+  },
+  {
+    "eventName": "test event 1",
+    "userEmail": "child2@example.com",
+    "ticketName": "ticket1-1"
+  },
+  {
+    "eventName": "test event 2",
+    "userEmail": "parent1@example.com",
+    "ticketName": "ticket2-1"
+  },
+  {
+    "eventName": "test event 1",
+    "userEmail": "mentor1@example.com",
+    "ticketName": "ticket2-3"
+  }
+]

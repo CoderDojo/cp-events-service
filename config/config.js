@@ -1,6 +1,6 @@
 var path = require('path');
 
-module.exports = function () {
+module.exports = function (options) {
   function pgConfig () {
     return {
       name: process.env.POSTGRES_NAME,
@@ -45,7 +45,7 @@ module.exports = function () {
       type: 'web',
       web: {
         timeout: 120000,
-        port: 10306
+        port: options && options.port ? options.port : 10306
       }
     },
     timeout: 120000,

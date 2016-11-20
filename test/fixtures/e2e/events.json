@@ -11,7 +11,6 @@
     "address": "some address in Italy",
     "type": "one-off",
     "description": "test event description",
-    "dojoId": 120,
     "position": {
       "lat": 45,
       "lng": 12
@@ -55,7 +54,6 @@
     "address": "Berthom",
     "type": "one-off",
     "description": "We need more beers",
-    "dojoId": 120,
     "position": {
       "lat": 45,
       "lng": 12
@@ -90,6 +88,35 @@
         ]
       }
     ],
+    "ticketApproval": true
+  },
+  {
+    "name": "test event 3",
+    "country": {
+      "countryName": "France",
+      "alpha2": "FR"
+    },
+    "city": {
+      "nameWithHierarchy": "Lyon"
+    },
+    "address": "Berthom",
+    "type": "one-off",
+    "description": "Draft : We need more beers",
+    "position": {
+      "lat": 45,
+      "lng": 12
+    },
+    "public": true,
+    "status": "saved",
+    "recurringType": "weekly",
+    "dates": [
+      {
+        "startTime": null,
+        "endTime": null
+      }
+    ],
+    "sessions": [],
     "ticketApproval": false
   }
+
 ]

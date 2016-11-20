@@ -10,11 +10,14 @@ module.exports = function (options) {
   seneca.add({ role: plugin, cmd: 'insert', entity: 'event'}, function (args, done) {
     var events = require('../fixtures/e2e/events');
     var index = 1;
+    var dojo = {};
     async.eachSeries(events, function (event, sCb) {
       seneca.act({role: 'cd-dojos', cmd: 'list', query: {name: 'dojo' + index}}, function (err, dojos) {
         index ++;
+        // Even if we run out of dojos, we can reuse the previous one
+        if(!_.isEmpty(dojos)) dojo = dojos[0];
         var now = new Date();
-        event.dojoId = dojos[0].id;
+        event.dojoId = dojo.id;
         event.dates[0].startTime = now.setDate(now.getDate() + 5);
         event.dates[0].endTime = now.setTime(now.getTime() + (3 * 60 * 60 * 1000));
         seneca.act({role: 'cd-events', cmd: 'saveEvent', eventInfo: event }, sCb);

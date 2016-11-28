@@ -29,12 +29,12 @@
         "tickets": [
           {
             "name": "ticket1-1",
-            "ticketType": "parent-guardian",
+            "type": "parent-guardian",
             "quantity": 2
           },
           {
             "name": "ticket1-2",
-            "ticketType": "ninja",
+            "type": "ninja",
             "quantity": 6
           }
         ]
@@ -72,17 +72,17 @@
         "tickets": [
           {
             "name": "ticket2-1",
-            "ticketType": "parent-guardian",
+            "type": "parent-guardian",
             "quantity": 1
           },
           {
             "name": "ticket2-2",
-            "ticketType": "ninja",
+            "type": "ninja",
             "quantity": 2
           },
           {
             "name": "ticket2-3",
-            "ticketType": "mentor",
+            "type": "mentor",
             "quantity": 1
           }
         ]

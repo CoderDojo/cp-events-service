@@ -18,8 +18,10 @@ module.exports = function (options) {
         if(!_.isEmpty(dojos)) dojo = dojos[0];
         var now = new Date();
         event.dojoId = dojo.id;
-        event.dates[0].startTime = now.setDate(now.getDate() + 5);
-        event.dates[0].endTime = now.setTime(now.getTime() + (3 * 60 * 60 * 1000));
+        now.setDate(now.getDate() + 5);
+        event.dates[0].startTime = now.toISOString();
+        now.setTime(now.getTime() + (3 * 60 * 60 * 1000));
+        event.dates[0].endTime = now.toISOString();
         seneca.act({role: 'cd-events', cmd: 'saveEvent', eventInfo: event }, sCb);
       });
     }, function (err, events){

@@ -61,7 +61,7 @@ require('./migrate-psql-db.js')(function (err) {
             if (args.q.sort$ && typeof args.q.sort$ === 'object') {
               var order = args.q.sort$;
               _.each(order, function (ascdesc, column) {
-                if (!/^[a-zA-Z0-9_]+$/g.test(column.match)) {
+                if (!/^[a-zA-Z0-9_]+$/g.test(column)) {
                   throw new Error('Unexpect characters in sort$');
                 }
               });

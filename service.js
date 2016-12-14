@@ -9,7 +9,9 @@ var seneca = require('seneca')(config);
 var util = require('util');
 var _ = require('lodash');
 var store = require('seneca-postgresql-store');
-var log = require('cp-logs-lib')({name: 'cp-events-service', level: 'warn'});
+var dgram = require('dgram');
+var service = 'cp-events-service';
+var log = require('cp-logs-lib')({name: service, level: 'warn'});
 config.log = log.log;
 
 seneca.log.info('using config', JSON.stringify(config, null, 4));
@@ -41,13 +43,17 @@ require('./migrate-psql-db.js')(function (err) {
   }
   console.log('Migrations ok');
 
-  seneca.listen()
-    .client({type: 'web', port: 10305, pin: {role: 'cd-badges', cmd: '*'}})
-    .client({type: 'web', port: 10301, pin: 'role:cd-dojos,cmd:*'})
-    .client({type: 'web', port: 10303, pin: 'role:cd-users,cmd:*'})
-    .client({type: 'web', port: 10303, pin: 'role:cd-profiles,cmd:*'});
+  require('./network')(seneca);
 
-  seneca.ready(function () {
+  seneca.ready(function (err) {
+    if (err) return shutdown(err);
+    var message = new Buffer(service);
+    var client = dgram.createSocket('udp4');
+    client.send(message, 0, message.length, 11404, 'localhost', function (err, bytes) {
+      if (err) return shutdown(err);
+      client.close();
+    });
+
     var escape = require('seneca-postgresql-store/lib/relational-util').escapeStr;
     ['load', 'list'].forEach(function (cmd) {
       seneca.wrap('role: entity, cmd: ' + cmd, function filterFields (args, cb) {

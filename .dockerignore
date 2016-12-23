@@ -1,0 +1,9 @@
+.git
+.gitignore
+*.md
+Dockerfile
+*.sh
+deploy
+test
+example
+*.yml

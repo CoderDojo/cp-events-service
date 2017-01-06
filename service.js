@@ -16,7 +16,7 @@ config.log = log.log;
 
 seneca.log.info('using config', JSON.stringify(config, null, 4));
 seneca.options(config);
-
+seneca.decorate('customValidatorLogFormatter', require('./lib/custom-validator-log-formatter'));
 seneca.use(store, config['postgresql-store']);
 seneca.use(require('./lib/cd-events'), {logger: log.logger});
 seneca.use(require('cp-permissions-plugin'), {

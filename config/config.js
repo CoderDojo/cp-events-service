@@ -1,4 +1,5 @@
 var path = require('path');
+var CpTranslations = require('cp-translations');
 
 module.exports = function (options) {
   function pgConfig () {
@@ -28,7 +29,7 @@ module.exports = function (options) {
       }
     },
     mail: {
-      folder: path.resolve(__dirname + '/../email-templates'),
+      folder: path.resolve(CpTranslations.getEmailTemplatePath()),
       mail: {
         from: 'no-reply@coderdojo.com'
       },

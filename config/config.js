@@ -10,14 +10,14 @@ module.exports = function (options) {
       password: process.env.POSTGRES_PASSWORD
     };
   }
-  function kueConfig() {
+  function kueConfig () {
     return {
       start: process.env.KUE_REQUIRED,
       redis: {
         host: process.env.KUE_HOST || 'localhost',
         port: process.env.KUE_PORT || '6379'
       }
-    }
+    };
   }
 
   return {

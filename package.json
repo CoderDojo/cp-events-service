@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "async": "0.9.2",
+    "cp-i18n-lib": "git://github.com/CoderDojo/cp-i18n-lib.git",
     "cp-logs-lib": "git://github.com/CoderDojo/cp-logs-lib#1.1.0",
     "cp-permissions-plugin": "git://github.com/CoderDojo/cp-permissions-plugin#1.0.2",
     "ejs": "1.0.0",

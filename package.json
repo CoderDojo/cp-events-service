@@ -31,6 +31,7 @@
     "cp-i18n-lib": "git://github.com/CoderDojo/cp-i18n-lib.git",
     "cp-logs-lib": "git://github.com/CoderDojo/cp-logs-lib#1.1.0",
     "cp-permissions-plugin": "git://github.com/CoderDojo/cp-permissions-plugin#1.0.2",
+    "cp-translations": "^1.0.22",
     "ejs": "1.0.0",
     "js-yaml": "3.2.7",
     "json2csv": "2.11.0",

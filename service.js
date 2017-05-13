@@ -11,11 +11,32 @@ var _ = require('lodash');
 var store = require('seneca-postgresql-store');
 var dgram = require('dgram');
 var service = 'cp-events-service';
+var sanitizeHtml = require('sanitize-html');
 var log = require('cp-logs-lib')({name: service, level: 'warn'});
 config.log = log.log;
 
 seneca.log.info('using config', JSON.stringify(config, null, 4));
 seneca.options(config);
+/**
+ * TextArea fields contains user generated html.
+ * We'd like to sanitize it to strip out script tags and other bad things.
+ * See https://github.com/punkave/sanitize-html#what-are-the-default-options for a list
+ * sanitizeHtml's default settings.
+ */
+seneca.options.sanitizeTextArea = {
+  allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
+  allowedAttributes: _.assign({}, sanitizeHtml.defaults.allowedAttributes, {
+    /**
+     * Allowing everything here since within ckeditor you have the option of setting the following:
+     *
+     *   * styles such as border, width, and height.
+     *   * alt text
+     *
+     * However ng-bind-html strips the style tag, so you won't actually see custom styling.
+     */
+    img: ['*']
+  })
+};
 seneca.decorate('customValidatorLogFormatter', require('./lib/custom-validator-log-formatter'));
 seneca.use(store, config['postgresql-store']);
 seneca.use(require('./lib/cd-events'), {logger: log.logger});

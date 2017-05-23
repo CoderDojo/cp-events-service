@@ -52,7 +52,8 @@ process.on('SIGTERM', shutdown);
 process.on('uncaughtException', shutdown);
 
 function shutdown (err) {
-  seneca.act({ role: 'queue', cmd: 'stop' });
+  var stopQueue = seneca.export('queues/queue')['stopQueue'];
+  stopQueue();
   if (err !== void 0 && err.stack !== void 0) {
     console.error(new Date().toString() + ' FATAL: UncaughtException, please report: ' + util.inspect(err));
     console.error(util.inspect(err.stack));
@@ -71,7 +72,6 @@ require('./migrate-psql-db.js')(function (err) {
   require('./network')(seneca);
 
   seneca.ready(function (err) {
-    seneca.act({ role: 'queue', cmd: 'start' });
     if (err) return shutdown(err);
     var message = new Buffer(service);
     var client = dgram.createSocket('udp4');

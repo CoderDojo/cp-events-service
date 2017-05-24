@@ -10,9 +10,19 @@ module.exports = function (options) {
       password: process.env.POSTGRES_PASSWORD
     };
   }
+  function kueConfig () {
+    return {
+      start: process.env.KUE_REQUIRED,
+      redis: {
+        host: process.env.KUE_HOST || 'localhost',
+        port: process.env.KUE_PORT || '6379'
+      }
+    };
+  }
 
   return {
     'postgresql-store': pgConfig(),
+    'kue': kueConfig(),
     'email-notifications': {
       sendemail: true,
       email: {

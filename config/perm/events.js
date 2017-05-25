@@ -11,7 +11,7 @@ module.exports = function () {
     }],
     //  TODO: verify this one, seems meh to me
     'getEvent': [{
-      role: 'basic-user'
+      role: 'none'
     }],
     'listEvents': [{
       role: 'basic-user'
@@ -76,7 +76,7 @@ module.exports = function () {
       }]
     }],
     'searchSessions': [{
-      role: 'basic-user'
+      role: 'none'
     }],
     'saveSession': [{
       role: 'basic-user',

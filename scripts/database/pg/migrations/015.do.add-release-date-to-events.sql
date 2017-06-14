@@ -5,5 +5,11 @@ DO $$
     EXCEPTION
         WHEN duplicate_column THEN RAISE NOTICE 'column tickets_released already exists in cd_events.';
     END;
+    BEGIN
+        ALTER TABLE cd_events ADD COLUMN release_date timestamptz DEFAULT NULL;
+    EXCEPTION
+        WHEN duplicate_column THEN RAISE NOTICE 'column release_date already exists in cd_events.';
+    END;
+
   END;
 $$

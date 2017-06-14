@@ -1,7 +1,6 @@
 'use strict';
 process.setMaxListeners(0);
 require('events').EventEmitter.prototype._maxListeners = 100;
-
 if (process.env.NEW_RELIC_ENABLED === 'true') require('newrelic');
 
 var config = require('./config/config.js')();
@@ -15,6 +14,7 @@ var sanitizeHtml = require('sanitize-html');
 var log = require('cp-logs-lib')({name: service, level: 'warn'});
 config.log = log.log;
 
+//client.set("string key", "string val", redis.print);
 seneca.log.info('using config', JSON.stringify(config, null, 4));
 seneca.options(config);
 /**

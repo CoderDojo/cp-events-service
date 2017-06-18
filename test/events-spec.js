@@ -21,6 +21,7 @@ const dojos = require('./fixtures/dojos.json');
 const usersDojos = require('./fixtures/usersdojos.json');
 
 seneca.options(config);
+seneca.use('entity');
 
 seneca
 /*.use(require(__dirname + '/stubs/cd-users.js'))
@@ -41,7 +42,6 @@ const usersDojosEntity = seneca.make$('cd/usersdojos');
 process.on('SIGINT', () => {
   process.exit(0);
 });
-
 (function mockPg () {
   const client = {query: _.noop, end: _.noop};
   sinon.mock(client).expects('query').atLeast(1).callsArgWith(2, null, {rows: []});

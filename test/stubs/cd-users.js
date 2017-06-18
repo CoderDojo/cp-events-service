@@ -1,11 +1,8 @@
 'use strict';
 
-var async = require('async');
-
-module.exports = function(options) {
-  var seneca = this;
-  var plugin = 'cd-users';
-  var ENTITY_NS = 'cd/users';
+module.exports = function() {
+  const seneca = this;
+  const plugin = 'cd-users';
 
   seneca.add({role: plugin, cmd: 'list'}, cmd_list);
   seneca.add({role: plugin, cmd: 'load'}, cmd_load);
@@ -29,6 +26,6 @@ module.exports = function(options) {
   }
 
   return {
-    name: plugin
+    name: plugin,
   };
 };

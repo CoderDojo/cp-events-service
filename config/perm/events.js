@@ -3,126 +3,126 @@
 module.exports = function () {
   return {
     'saveEvent': [{
-      role: 'basic-user',
+      role           : 'basic-user',
       customValidator: [{
-      	role: 'cd-events',
-      	cmd: 'is_ticketing_admin'
-      }]
+        role: 'cd-events',
+        cmd : 'is_ticketing_admin',
+      }],
     }],
     //  TODO: verify this one, seems meh to me
     'getEvent': [{
-      role: 'none'
+      role: 'none',
     }],
     'listEvents': [{
-      role: 'basic-user'
+      role: 'basic-user',
     }],
     'deleteEvents': [{
-      role: 'basic-user',
+      role           : 'basic-user',
       customValidator: [{
-      	role: 'cd-events',
-      	cmd: 'is_ticketing_admin'
-      }]
+        role: 'cd-events',
+        cmd : 'is_ticketing_admin',
+      }],
     }],
     'loadEventApplications': [{
-      role: 'basic-user',
+      role           : 'basic-user',
       customValidator: [{
-      	role: 'cd-events',
-      	cmd: 'is_ticketing_admin'
-      }]
+        role: 'cd-events',
+        cmd : 'is_ticketing_admin',
+      }],
     }],
     'searchApplications': [{
-      role: 'basic-user',
+      role           : 'basic-user',
       customValidator: [{
-      	role: 'cd-events',
-      	cmd: 'is_ticketing_admin'
-      }]
+        role: 'cd-events',
+        cmd : 'is_ticketing_admin',
+      }],
     }],
     'deleteApplication': [{
-      role: 'basic-user',
+      role           : 'basic-user',
       customValidator: [{
-      	role: 'cd-events',
-      	cmd: 'is_ticketing_admin'
+        role: 'cd-events',
+        cmd : 'is_ticketing_admin',
       }],
     },
     {
-      role: 'basic-user',
+      role           : 'basic-user',
       customValidator: [{
         role: 'cd-events',
-        cmd: 'is_own_application'
+        cmd : 'is_own_application',
       }],
     },
     {
-      role: 'basic-user',
+      role           : 'basic-user',
       customValidator: [{
         role: 'cd-events',
-        cmd: 'is_parent_of_applicant'
+        cmd : 'is_parent_of_applicant',
       }],
     }],
     'saveApplication': [{
-      role: 'basic-user'
+      role: 'basic-user',
     }],
     //  TODO: straighten?
     'userDojosEvents': [{
-      role: 'basic-user'
+      role: 'basic-user',
     }],
     'ticketTypes': [{
-      role: 'none'
+      role: 'none',
     }],
     'exportGuestList': [{
-      role: 'basic-user',
+      role           : 'basic-user',
       customValidator: [{
-      	role: 'cd-events',
-      	cmd: 'is_ticketing_admin'
-      }]
+        role: 'cd-events',
+        cmd : 'is_ticketing_admin',
+      }],
     }],
     'searchSessions': [{
-      role: 'none'
+      role: 'none',
     }],
     'saveSession': [{
-      role: 'basic-user',
+      role           : 'basic-user',
       customValidator: [{
-      	role: 'cd-events',
-      	cmd: 'is_ticketing_admin'
-      }]
+        role: 'cd-events',
+        cmd : 'is_ticketing_admin',
+      }],
     }],
     'bulkApplyApplications': [{
-      role: 'basic-user'
+      role: 'basic-user',
     }],
     'updateApplicationAttendance': [{
-      role: 'basic-user',
+      role           : 'basic-user',
       customValidator: [{
-      	role: 'cd-events',
-      	cmd: 'is_ticketing_admin'
-      }]
+        role: 'cd-events',
+        cmd : 'is_ticketing_admin',
+      }],
     }],
     'loadApplication': [{
-      role: 'basic-user'
+      role: 'basic-user',
     }],
     'cancelSession': [{
-      role: 'basic-user',
+      role           : 'basic-user',
       customValidator: [{
-      	role: 'cd-events',
-      	cmd: 'is_ticketing_admin'
-      }]
+        role: 'cd-events',
+        cmd : 'is_ticketing_admin',
+      }],
     }],
     'loadSession': [{
-      role: 'basic-user'
+      role: 'basic-user',
     }],
     'saveTicket': [{
-      role: 'basic-user',
+      role           : 'basic-user',
       customValidator: [{
-      	role: 'cd-events',
-      	cmd: 'is_ticketing_admin'
-      }]
+        role: 'cd-events',
+        cmd : 'is_ticketing_admin',
+      }],
     }],
     'searchTickets': [{
-      role: 'basic-user'
+      role: 'basic-user',
     }],
     'validateSessionInvitation': [{
-      role: 'basic-user'
+      role: 'basic-user',
     }],
     'loadTicket': [{
-      role: 'basic-user'
-    }]
+      role: 'basic-user',
+    }],
   };
 };

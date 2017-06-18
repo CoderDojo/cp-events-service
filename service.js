@@ -4,15 +4,15 @@ require('events').EventEmitter.prototype._maxListeners = 100;
 
 if (process.env.NEW_RELIC_ENABLED === 'true') require('newrelic');
 
-var config = require('./config/config.js')();
-var seneca = require('seneca')(config);
-var util = require('util');
-var _ = require('lodash');
-var store = require('seneca-postgresql-store');
-var dgram = require('dgram');
-var service = 'cp-events-service';
-var sanitizeHtml = require('sanitize-html');
-var log = require('cp-logs-lib')({name: service, level: 'warn'});
+const config = require('./config/config.js')();
+const seneca = require('seneca')(config);
+const util = require('util');
+const _ = require('lodash');
+const store = require('seneca-postgresql-store');
+const dgram = require('dgram');
+const service = 'cp-events-service';
+const sanitizeHtml = require('sanitize-html');
+const log = require('cp-logs-lib')({name: service, level: 'warn'});
 config.log = log.log;
 
 seneca.log.info('using config', JSON.stringify(config, null, 4));
@@ -24,7 +24,7 @@ seneca.options(config);
  * sanitizeHtml's default settings.
  */
 seneca.options.sanitizeTextArea = {
-  allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
+  allowedTags      : sanitizeHtml.defaults.allowedTags.concat(['img']),
   allowedAttributes: _.assign({}, sanitizeHtml.defaults.allowedAttributes, {
     /**
      * Allowing everything here since within ckeditor you have the option of setting the following:
@@ -34,14 +34,14 @@ seneca.options.sanitizeTextArea = {
      *
      * However ng-bind-html strips the style tag, so you won't actually see custom styling.
      */
-    img: ['*']
-  })
+    img: ['*'],
+  }),
 };
 seneca.decorate('customValidatorLogFormatter', require('./lib/custom-validator-log-formatter'));
 seneca.use(store, config['postgresql-store']);
 seneca.use(require('./lib/cd-events'), {logger: log.logger});
 seneca.use(require('cp-permissions-plugin'), {
-  config: __dirname + '/config/permissions'
+  config: __dirname + '/config/permissions',
 });
 
 seneca.use(require('seneca-queue'));
@@ -52,7 +52,7 @@ process.on('SIGTERM', shutdown);
 process.on('uncaughtException', shutdown);
 
 function shutdown (err) {
-  var stopQueue = seneca.export('queues/queue')['stopQueue'];
+  const stopQueue = seneca.export('queues/queue')['stopQueue'];
   stopQueue();
   if (err !== void 0 && err.stack !== void 0) {
     console.error(new Date().toString() + ' FATAL: UncaughtException, please report: ' + util.inspect(err));
@@ -62,7 +62,7 @@ function shutdown (err) {
   process.exit(0);
 }
 
-require('./migrate-psql-db.js')(function (err) {
+require('./migrate-psql-db.js')((err) => {
   if (err) {
     console.error(err);
     process.exit(-1);
@@ -71,28 +71,28 @@ require('./migrate-psql-db.js')(function (err) {
 
   require('./network')(seneca);
 
-  seneca.ready(function (err) {
+  seneca.ready((err) => {
     if (err) return shutdown(err);
-    var message = new Buffer(service);
-    var client = dgram.createSocket('udp4');
-    client.send(message, 0, message.length, 11404, 'localhost', function (err, bytes) {
+    const message = new Buffer(service);
+    const client = dgram.createSocket('udp4');
+    client.send(message, 0, message.length, 11404, 'localhost', (err) => {
       if (err) return shutdown(err);
       client.close();
     });
 
-    var escape = require('seneca-postgresql-store/lib/relational-util').escapeStr;
-    ['load', 'list'].forEach(function (cmd) {
+    const escape = require('seneca-postgresql-store/lib/relational-util').escapeStr;
+    ['load', 'list'].forEach((cmd) => {
       seneca.wrap('role: entity, cmd: ' + cmd, function filterFields (args, cb) {
         try {
-          ['limit$', 'skip$'].forEach(function (field) {
+          ['limit$', 'skip$'].forEach((field) => {
             if (args.q[field] && args.q[field] !== 'NULL' && !/^[0-9]+$/g.test(args.q[field] + '')) {
               throw new Error('Expect limit$, skip$ to be a number');
             }
           });
           if (args.q.sort$) {
             if (args.q.sort$ && typeof args.q.sort$ === 'object') {
-              var order = args.q.sort$;
-              _.each(order, function (ascdesc, column) {
+              const order = args.q.sort$;
+              _.each(order, (ascdesc, column) => {
                 if (!/^[a-zA-Z0-9_]+$/g.test(column)) {
                   throw new Error('Unexpect characters in sort$');
                 }
@@ -102,7 +102,7 @@ require('./migrate-psql-db.js')(function (err) {
             }
           }
           if (args.q.fields$) {
-            args.q.fields$.forEach(function (field, index) {
+            args.q.fields$.forEach((field, index) => {
               args.q.fields$[index] = '\"' + escape(field) + '\"';
             });
           }

@@ -1,3 +1,4 @@
+'use strict';
 /**
  * New Relic agent configuration.
  *
@@ -8,8 +9,8 @@
  * and: https://github.com/newrelic/node-newrelic/blob/master/lib/config.default.js
  */
 exports.config = {
-  app_name: ['cp-newrelic-service'],
+  app_name     : ['cp-newrelic-service'],
   agent_enabled: false, // set via NEW_RELIC_ENABLED for production
-  license_key: '',      // set via NEW_RELIC_LICENSE_KEY
-  filepath: '/tmp/newrelic_agent_events.log'
+  license_key  : '',      // set via NEW_RELIC_LICENSE_KEY
+  filepath     : '/tmp/newrelic_agent_events.log',
 };

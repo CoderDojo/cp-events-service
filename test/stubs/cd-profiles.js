@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = function(options) {
-  var seneca = this;
-  var plugin = 'cd-profiles';
- 
+module.exports = function() {
+  const seneca = this;
+  const plugin = 'cd-profiles';
+
   seneca.add({role: plugin, cmd: 'list'}, cmd_list);
   seneca.add({role: plugin, cmd: 'search'}, cmd_search);
   seneca.add({role: plugin, cmd: 'save'}, cmd_save);
@@ -21,6 +21,6 @@ module.exports = function(options) {
   }
 
   return {
-    name: plugin
+    name: plugin,
   };
 };

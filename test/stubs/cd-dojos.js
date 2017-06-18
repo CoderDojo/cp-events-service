@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = function (options) {
-  var seneca = this;
-  var plugin = 'cd-countries';
+module.exports = function () {
+  const seneca = this;
+  const plugin = 'cd-countries';
 
   seneca.add({role: plugin, cmd: 'search'}, cmd_search);
   seneca.add({role: plugin, cmd: 'list'}, cmd_list);
@@ -81,202 +81,202 @@ module.exports = function (options) {
   }
 
   function cmd_search (args, done) {
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_list (args, done) {
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_load (args, done) {
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_find (args, done) {
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_create (args, done) {
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_update (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_delete (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_my_dojos (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_dojos_count (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_dojos_by_country (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_dojos_state_count (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_bulk_update (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_bulk_delete (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_get_stats (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_save_dojo_lead (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_load_user_dojo_lead (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_load_dojo_lead (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_load_setup_dojo_steps (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_load_users_dojos (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_load_dojo_users (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_send_email (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_generate_user_invite_token (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_accept_user_invite (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_request_user_invite (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_load_dojo_champion (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_accept_user_request (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_dojos_for_user (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_save_usersdojos (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_remove_usersdojos (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_get_user_types (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_get_user_permissions (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_create_dojo_email (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_search_dojo_leads (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_uncompleted_dojos (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
   function cmd_get_dojo_config (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_load_dojo_admins (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_update_dojo_founder (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_search_nearest_dojos (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_search_bounding_box (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_list_query (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_find_dojolead (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_load_dojo_email (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_countries_continents (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_list_countries (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_list_places (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_countries_lat_long (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_continents_lat_long (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_get_continent_codes (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   function cmd_reverse_geocode (args, done){
-    done(new Error('action not stubbed!'), null)
+    done(new Error('action not stubbed!'), null);
   }
 
   return {
-    name: plugin
+    name: plugin,
   };
 
 };

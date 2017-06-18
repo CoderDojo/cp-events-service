@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = function(options) {
-  var seneca = this;
-  var plugin = 'email-notifications';
+module.exports = function() {
+  const seneca = this;
+  const plugin = 'email-notifications';
 
   seneca.add({role: plugin, cmd: 'send'}, cmd_send);
 
@@ -11,6 +11,6 @@ module.exports = function(options) {
   }
 
   return {
-    name: plugin
+    name: plugin,
   };
 };

@@ -21,20 +21,20 @@ const dojos = require('./fixtures/dojos.json');
 const usersDojos = require('./fixtures/usersdojos.json');
 
 seneca.options(config);
-seneca.use('entity');
 
 seneca
 /*.use(require(__dirname + '/stubs/cd-users.js'))
  .use(require(__dirname + '/stubs/cd-profiles.js'))
  .use(require(__dirname + '/stubs/cd-dojos.js'))
  .use(require(__dirname + '/stubs/email-notifications.js'))*/
-  .use(require(__dirname + '/../lib/cd-events', {logger: logger}));
+  .use(require(__dirname + '/../lib/cd-events', {logger: logger}))
+  .use(require('seneca-entity'));
 
-const eventsEntity = seneca.make$('cd/events');
-const usersEntity = seneca.make$('sys/user');
-const profilesEntity = seneca.make$('cd/profiles');
-const dojosEntity = seneca.make$('cd/dojos');
-const usersDojosEntity = seneca.make$('cd/usersdojos');
+const eventsEntity = seneca.make('cd/events');
+const usersEntity = seneca.make('sys/user');
+const profilesEntity = seneca.make('cd/profiles');
+const dojosEntity = seneca.make('cd/dojos');
+const usersDojosEntity = seneca.make('cd/usersdojos');
 
 
 // this is unusually necessary

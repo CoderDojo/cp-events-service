@@ -47,17 +47,6 @@
     'no-var': [
       'error',
     ],
-    'no-console': [
-      'error',
-      {
-        'allow': [
-          'warn',
-          'trace',
-          'log',
-          'error'
-        ]
-      }
-    ],
     'prefer-arrow-callback': [
       'error',
       {

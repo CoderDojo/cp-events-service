@@ -4,6 +4,7 @@
   "description": "seneca microservice for events",
   "main": "service.js",
   "scripts": {
+    "start": "node service.js",
     "lint": "eslint .",
     "test": "bash -c 'source ./config/development.env; eslint . --fix && lab --ignore __core-js_shared__ --flat --threshold 48 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout'",
     "lint:fix": "eslint . --fix"

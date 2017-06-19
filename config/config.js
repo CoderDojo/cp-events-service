@@ -4,11 +4,11 @@ const path = require('path');
 module.exports = options => {
   function pgConfig () {
     return {
+      username: process.env.POSTGRES_USERNAME,
+      password: process.env.POSTGRES_PASSWORD,
       name    : process.env.POSTGRES_NAME,
       host    : process.env.POSTGRES_HOST || '127.0.0.1',
       port    : process.env.POSTGRES_PORT || 5432,
-      username: process.env.POSTGRES_USERNAME,
-      password: process.env.POSTGRES_PASSWORD,
     };
   }
   function kueConfig () {

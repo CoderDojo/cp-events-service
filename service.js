@@ -8,14 +8,13 @@ const config = require('./config/config.js')();
 const seneca = require('seneca')(config);
 const util = require('util');
 const _ = require('lodash');
-const store = require('seneca-postgresql-store');
 const dgram = require('dgram');
 const service = 'cp-events-service';
 const sanitizeHtml = require('sanitize-html');
 const log = require('cp-logs-lib')({name: service, level: 'warn'});
 config.log = log.log;
 
-seneca.log.info('using config', JSON.stringify(config, null, 4));
+console.log('using config', JSON.stringify(config, null, 2));
 seneca.options(config);
 /**
  * TextArea fields contains user generated html.
@@ -38,7 +37,7 @@ seneca.options.sanitizeTextArea = {
   }),
 };
 seneca.decorate('customValidatorLogFormatter', require('./lib/custom-validator-log-formatter'));
-seneca.use(store, config.postgresql);
+seneca.use(require('seneca-postgresql-store'), config.postgresql);
 seneca.use(require('seneca-entity'));
 seneca.use(require('./lib/cd-events'), {logger: log.logger});
 seneca.use(require('cp-permissions-plugin'), {

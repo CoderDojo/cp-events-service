@@ -22,8 +22,8 @@ module.exports = options => {
   }
 
   return {
-    'postgresql-store'   : pgConfig(),
     'kue'                : kueConfig(),
+    postgresql           : pgConfig(),
     'email-notifications': {
       sendemail: true,
       email    : {

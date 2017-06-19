@@ -6,10 +6,10 @@ module.exports = function migrate (cb) {
   postgrator.setConfig({
     migrationDirectory: './scripts/database/pg/migrations',
     driver            : 'pg',
-    host              : config['postgresql-store'].host,
-    database          : config['postgresql-store'].name,
-    username          : config['postgresql-store'].username,
-    password          : config['postgresql-store'].password,
+    host              : config.postgresql.host,
+    database          : config.postgresql.name,
+    username          : config.postgresql.username,
+    password          : config.postgresql.password,
     newline           : 'LF',
   });
 

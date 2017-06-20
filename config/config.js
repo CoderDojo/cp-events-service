@@ -9,6 +9,7 @@ module.exports = options => {
       name    : process.env.POSTGRES_NAME,
       host    : process.env.POSTGRES_HOST || '127.0.0.1',
       port    : process.env.POSTGRES_PORT || 5432,
+      options : { },
     };
   }
   function kueConfig () {

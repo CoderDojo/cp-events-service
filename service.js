@@ -9,6 +9,7 @@ const seneca = require('seneca')(config);
 const util = require('util');
 const _ = require('lodash');
 const dgram = require('dgram');
+const store = require('seneca-postgresql-store');
 const service = 'cp-events-service';
 const sanitizeHtml = require('sanitize-html');
 const log = require('cp-logs-lib')({name: service, level: 'warn'});
@@ -37,7 +38,7 @@ seneca.options.sanitizeTextArea = {
   }),
 };
 seneca.decorate('customValidatorLogFormatter', require('./lib/custom-validator-log-formatter'));
-seneca.use(require('seneca-postgresql-store'), config.postgresql);
+seneca.use(store, config.postgresql);
 seneca.use(require('seneca-entity'));
 seneca.use(require('./lib/cd-events'), {logger: log.logger});
 seneca.use(require('cp-permissions-plugin'), {
@@ -80,7 +81,6 @@ require('./migrate-psql-db.js')((err) => {
       client.close();
     });
 
-    const escape = require('seneca-postgresql-store/lib/relational-util').escapeStr;
     ['load', 'list'].forEach((cmd) => {
       seneca.wrap('role: entity, cmd: ' + cmd, function filterFields (args, cb) {
         try {
@@ -100,11 +100,6 @@ require('./migrate-psql-db.js')((err) => {
             } else {
               throw new Error('Expect sort$ to be an object');
             }
-          }
-          if (args.q.fields$) {
-            args.q.fields$.forEach((field, index) => {
-              args.q.fields$[index] = '\"' + escape(field) + '\"';
-            });
           }
           this.prior(args, cb);
         } catch (err) {

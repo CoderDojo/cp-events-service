@@ -44,11 +44,16 @@ seneca.use(require('cp-permissions-plugin'), {
   config: __dirname + '/config/permissions'
 });
 
+seneca.use(require('seneca-queue'));
+seneca.use(require('seneca-kue'));
+seneca.use(require('./lib/queues'), {config: config.kue});
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 process.on('uncaughtException', shutdown);
 
 function shutdown (err) {
+  var stopQueue = seneca.export('queues/queue')['stopQueue'];
+  stopQueue();
   if (err !== void 0 && err.stack !== void 0) {
     console.error(new Date().toString() + ' FATAL: UncaughtException, please report: ' + util.inspect(err));
     console.error(util.inspect(err.stack));

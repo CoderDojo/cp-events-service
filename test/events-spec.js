@@ -148,7 +148,7 @@ lab.experiment('Events Microservice test', function () {
 
           var expectedFields = ['id', 'country', 'name', 'city',
             'address', 'type', 'description', 'dojoId', 'position',
-            'public', 'status', 'recurringType', 'dates','ticketApproval'];
+            'public', 'status', 'recurringType', 'dates','ticketApproval', 'chooseReleaseDate'];
           var actualFields = Object.keys(event);
           _.each(expectedFields, function (field) {
             expect(actualFields).to.include(field);

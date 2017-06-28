@@ -5,6 +5,7 @@ const seneca = require('seneca')(config);
 const service = 'cp-events-test';
 const dgram = require('dgram');
 seneca.use(require('./insert-test-events'));
+seneca.use(require('seneca-entity'));
 
 seneca.ready(() => {
   const message = new Buffer(service);

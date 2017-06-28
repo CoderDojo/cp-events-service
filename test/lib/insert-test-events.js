@@ -65,7 +65,10 @@ module.exports = function () {
 
       function saveApplication (event, ticket, user, wfCb) {
         const payload = {
-          ticketId   : ticket.id, eventId    : event.id, sessionId  : ticket.sessionId, dojoId     : event.dojoId,
+          ticketId   : ticket.id,
+          eventId    : event.id,
+          sessionId  : ticket.sessionId,
+          dojoId     : event.dojoId,
           name       : user.name, dateOfBirth: user.dob, userId     : user.id,
           ticketName : ticket.name, ticketType : ticket.type,
           created    : new Date(),

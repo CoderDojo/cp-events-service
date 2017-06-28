@@ -75,13 +75,9 @@ module.exports = function () {
         };
         seneca.act({role: 'cd-events', cmd: 'saveApplication', application: payload}, wfCb);
       }
-
-
     }, () => {
       done();
     });
-
-
   });
 
   return {

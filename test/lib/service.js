@@ -1,6 +1,6 @@
 'use strict';
 
-const config = require('../../config/config.js')({port: 11306});
+const config = require('../../config/config.js')({ port: 11306 });
 const seneca = require('seneca')(config);
 const service = 'cp-events-test';
 const dgram = require('dgram');
@@ -10,13 +10,9 @@ seneca.use(require('seneca-entity'));
 seneca.ready(() => {
   const message = new Buffer(service);
   const client = dgram.createSocket('udp4');
-  client.send(message, 0, message.length, 11404, 'localhost', () => {
-    client.close();
-  });
-  seneca.add({role: service, cmd: 'suicide'}, (err, cb) => {
-    seneca.close((err) => {
-      process.exit(err ? 1: 0);
-    });
+  client.send(message, 0, message.length, 11404, 'localhost', () => client.close());
+  seneca.add({ role: service, cmd: 'suicide' }, (err, cb) => {
+    seneca.close(err => process.exit(err ? 1 : 0));
     cb();
   });
 });

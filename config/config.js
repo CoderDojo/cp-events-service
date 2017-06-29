@@ -23,7 +23,7 @@ module.exports = options => {
   }
 
   return {
-    'kue'                : kueConfig(),
+    kue                  : kueConfig(),
     postgresql           : pgConfig(),
     'email-notifications': {
       sendemail: true,

@@ -1,8 +1,9 @@
 'use strict';
+
 const postgrator = require('postgrator');
 const config = require('./config/config.js')();
 
-module.exports = function migrate (cb) {
+module.exports = function migrate(cb) {
   postgrator.setConfig({
     migrationDirectory: './scripts/database/pg/migrations',
     driver            : 'pg',

@@ -23,54 +23,61 @@ module.exports = function () {
         delete event.dojo;
         seneca.act({role: 'cd-events', cmd: 'saveEvent', eventInfo: event}, sCb);
       });
-    }, () => {
-      done();
-    });
+    }, () => done());
   });
 
   seneca.add({ role: plugin, cmd: 'insert', entity: 'application'}, (args, done) => {
     const applications = require('../fixtures/e2e/applications');
 
-    async.eachSeries(applications, (application, sCb) => {
+    async.eachSeries(applications, ({eventName, ticketName, userEmail, userName}, cb) => {
       async.waterfall([
         getEvent,
         getTicket,
         getUser,
         saveApplication,
-      ], () => {
-        sCb(null);
-      });
+      ], () => cb(null));
 
       function getEvent (wfCb) {
-        seneca.act({role: 'cd-events', cmd: 'listEvents', query: {name: application.eventName}}, (err, events) => {
-          return wfCb(null, events[0]);
-        });
+        seneca.act({
+          role : 'cd-events',
+          cmd  : 'listEvents',
+          query: { name: eventName },
+        }, (err, events) => wfCb(null, events[0]));
       }
+
       function getTicket (event, wfCb) {
-        seneca.act({role: 'cd-events', cmd: 'searchTickets', query: {name: application.ticketName}}, (err, tickets) => {
-          return wfCb(null, event, tickets[0]);
-        });
+        seneca.act({
+          role : 'cd-events',
+          cmd  : 'searchTickets',
+          query: { name: ticketName },
+        }, (err, tickets) => wfCb(null, event, tickets[0]));
       }
+
       function getUser (event, ticket, wfCb) {
         const query = {};
-        if (application.userEmail) {
-          query.email = application.userEmail;
+        if (userEmail) {
+          query.email = userEmail;
         } else {
-          query.name = application.userName;
+          query.name = userName;
         }
-        seneca.act({role: 'cd-users', cmd: 'list', query: query}, (err, users) => {
-          return wfCb(null, event, ticket, users[0]);
-        });
+        seneca.act({
+          role: 'cd-users',
+          cmd : 'list',
+          query,
+        }, (err, users) => wfCb(null, event, ticket, users[0]));
       }
 
       function saveApplication (event, ticket, user, wfCb) {
         const payload = {
-          ticketId   : ticket.id,
+          ticketId   : ticket.id, 
           eventId    : event.id,
           sessionId  : ticket.sessionId,
           dojoId     : event.dojoId,
-          name       : user.name, dateOfBirth: user.dob, userId     : user.id,
-          ticketName : ticket.name, ticketType : ticket.type,
+          name       : user.name, 
+          dateOfBirth: user.dob, 
+          userId     : user.id,
+          ticketName : ticket.name,
+          ticketType : ticket.type,
           created    : new Date(),
           deleted    : false,
           attendance : [],
@@ -78,9 +85,7 @@ module.exports = function () {
         };
         seneca.act({role: 'cd-events', cmd: 'saveApplication', application: payload}, wfCb);
       }
-    }, () => {
-      done();
-    });
+    }, () => done());
   });
 
   return {

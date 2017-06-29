@@ -1,4 +1,5 @@
 'use strict';
+
 process.setMaxListeners(0);
 require('events').EventEmitter.prototype._maxListeners = 100;
 
@@ -12,7 +13,7 @@ const dgram = require('dgram');
 const store = require('seneca-postgresql-store');
 const service = 'cp-events-service';
 const sanitizeHtml = require('sanitize-html');
-const log = require('cp-logs-lib')({name: service, level: 'warn'});
+const log = require('cp-logs-lib')({ name: service, level: 'warn' });
 config.log = log.log;
 
 console.log('using config', JSON.stringify(config, null, 2));
@@ -40,30 +41,30 @@ seneca.options.sanitizeTextArea = {
 seneca.decorate('customValidatorLogFormatter', require('./lib/custom-validator-log-formatter'));
 seneca.use(store, config.postgresql);
 seneca.use(require('seneca-entity'));
-seneca.use(require('./lib/cd-events'), {logger: log.logger});
+seneca.use(require('./lib/cd-events'), { logger: log.logger });
 seneca.use(require('cp-permissions-plugin'), {
-  config: __dirname + '/config/permissions',
+  config: `${__dirname}/config/permissions`,
 });
 
 seneca.use(require('seneca-queue'));
 seneca.use(require('seneca-kue'));
-seneca.use(require('./lib/queues'), {config: config.kue});
+seneca.use(require('./lib/queues'), { config: config.kue });
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 process.on('uncaughtException', shutdown);
 
-function shutdown (err) {
+function shutdown(err) {
   const stopQueue = seneca.export('queues/queue')['stopQueue'];
   stopQueue();
   if (err !== void 0 && err.stack !== void 0) {
-    console.error(new Date().toString() + ' FATAL: UncaughtException, please report: ' + util.inspect(err));
+    console.error(`${new Date().toString()} FATAL: UncaughtException, please report: ${util.inspect(err)}`);
     console.error(util.inspect(err.stack));
     console.trace();
   }
   process.exit(0);
 }
 
-require('./migrate-psql-db.js')((err) => {
+require('./migrate-psql-db.js')(err => {
   if (err) {
     console.error(err);
     process.exit(-1);
@@ -72,20 +73,20 @@ require('./migrate-psql-db.js')((err) => {
 
   require('./network')(seneca);
 
-  seneca.ready((err) => {
+  seneca.ready(err => {
     if (err) return shutdown(err);
     const message = new Buffer(service);
     const client = dgram.createSocket('udp4');
-    client.send(message, 0, message.length, 11404, 'localhost', (err) => {
+    client.send(message, 0, message.length, 11404, 'localhost', err => {
       if (err) return shutdown(err);
       client.close();
     });
 
-    ['load', 'list'].forEach((cmd) => {
-      seneca.wrap('role: entity, cmd: ' + cmd, function filterFields (args, cb) {
+    ['load', 'list'].forEach(cmd => {
+      seneca.wrap(`role: entity, cmd: ${cmd}`, function filterFields(args, cb) {
         try {
-          ['limit$', 'skip$'].forEach((field) => {
-            if (args.q[field] && args.q[field] !== 'NULL' && !/^[0-9]+$/g.test(args.q[field] + '')) {
+          ['limit$', 'skip$'].forEach(field => {
+            if (args.q[field] && args.q[field] !== 'NULL' && !/^[0-9]+$/g.test(`${args.q[field]}`)) {
               throw new Error('Expect limit$, skip$ to be a number');
             }
           });
@@ -100,8 +101,7 @@ require('./migrate-psql-db.js')((err) => {
             } else {
               throw new Error('Expect sort$ to be an object');
             }
-          }
-          this.prior(args, cb);
+          } this.prior(args, cb);
         } catch (err) {
           // cb to avoid seneca-transport to hang while waiting for timeout error
           return cb(err);

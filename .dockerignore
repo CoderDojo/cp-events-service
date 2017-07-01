@@ -4,6 +4,5 @@
 Dockerfile
 *.sh
 deploy
-test
 example
 *.yml

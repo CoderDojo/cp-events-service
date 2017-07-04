@@ -5,13 +5,15 @@ module.exports = {
   },
   extends: ['airbnb'],
   rules  : {
-    'camelcase'           : ['error', { properties: 'never' }],
-    'linebreak-style'     : ['error', 'unix'],
-    'arrow-parens'        : ['error', 'as-needed'],
-    'no-param-reassign'   : ['error', { props: false }],
-    'func-style'          : ['error', 'declaration', { allowArrowFunctions: true }],
-    'no-use-before-define': ['error', { functions: false }],
-    'no-shadow'           : ['error', {
+    'global-require'       : 0,
+    'no-unused-expressions': 0,
+    camelcase              : 0,
+    'linebreak-style'      : ['error', 'unix'],
+    'arrow-parens'         : ['error', 'as-needed'],
+    'no-param-reassign'    : ['error', { props: false }],
+    'func-style'           : ['error', 'declaration', { allowArrowFunctions: true }],
+    'no-use-before-define' : ['error', { functions: false }],
+    'no-shadow'            : ['error', {
       builtinGlobals: true,
       hoist         : 'functions',
       allow         : [

@@ -1,8 +1,8 @@
 process.setMaxListeners(0);
 const events = require('events');
 
-events.EventEmitter.prototype._maxListeners = 100;
-if (process.env.NEW_RELIC_ENABLED === 'true') require('newrelic');
+events.EventEmitter.prototype._maxListeners = 100; // eslint-disable-line no-underscore-dangle
+if (process.env.NEW_RELIC_ENABLED === 'true') require('newrelic'); // eslint-disable-line global-require
 
 const config = require('./config/config.js')();
 const seneca = require('seneca')(config);

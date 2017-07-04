@@ -2,14 +2,15 @@ process.env.SALESFORCE_ENABLED = 'true';
 
 const seneca = require('seneca')();
 
-const config = require(`${__dirname}/../config/config.js`)();
+const config = require('../config/config.js')();
 const pg = require('pg');
 const expect = require('chai').expect;
 const _ = require('lodash');
 const async = require('async');
 const sinon = require('sinon');
 const logger = require('cp-logs-lib')({ name: 'cp-events-service' }).logger;
-const lab = (exports.lab = require('lab').script());
+const lab = require('lab').script();
+exports.lab = require('lab').script();
 
 const role = 'cd-events';
 
@@ -26,7 +27,7 @@ seneca
  .use(require(__dirname + '/stubs/cd-profiles.js'))
  .use(require(__dirname + '/stubs/cd-dojos.js'))
  .use(require(__dirname + '/stubs/email-notifications.js'))*/
-  .use(require(`${__dirname}/../lib/cd-events`, { logger }))
+  .use(require('../lib/cd-events', { logger }))
   .use(require('seneca-entity'));
 
 const eventsEntity = seneca.make('cd/events');
@@ -96,31 +97,23 @@ lab.experiment('Events Microservice test', () => {
   });
 
   lab.before(done => {
-    seneca.util.recurse(
-      1,
-      (index, next) => {
-        dojos[index].userId = users[index].id;
-        saveDojo(dojos[index], next);
-      },
-      done,
-    );
+    seneca.util.recurse(1, (index, next) => {
+      dojos[index].userId = users[index].id;
+      saveDojo(dojos[index], next);
+    }, done);
   });
 
   lab.before(done => {
-    async.eachSeries(
-      usersDojos,
-      (item, callback) => {
-        dojosEntity.list$((err, dojos) => {
-          if (err) return done(err);
-          item.dojoId = dojos[0].id;
-          saveUsersDojo(item, callback);
-        });
-      },
-      err => {
+    async.eachSeries(usersDojos, (item, callback) => {
+      dojosEntity.list$((err, dojoList) => {
         if (err) return done(err);
-        done();
-      },
-    );
+        item.dojoId = dojoList[0].id;
+        saveUsersDojo(item, callback);
+      });
+    }, err => {
+      if (err) return done(err);
+      done();
+    });
   });
 
   lab.experiment('Create', () => {
@@ -128,53 +121,46 @@ lab.experiment('Events Microservice test', () => {
       const now = new Date();
 
       events[0].dates[0].startTime = now.setDate(now.getDate() + 5);
-      events[0].dates[0].endTime = now.setTime(now.getTime() + 3 * 60 * 60 * 1000);
+      events[0].dates[0].endTime = now.setTime(now.getTime() + (3 * 60 * 60 * 1000));
 
-      seneca.act(
-        {
-          role,
-          cmd        : 'saveEvent',
-          eventInfo  : events[0],
-          zenHostname: 'localhost:8000',
-          user       : { id: users[0].id, roles: ['cdf-admin'] },
-        },
-        (err, { id }) => {
+      seneca.act({
+        role,
+        cmd        : 'saveEvent',
+        eventInfo  : events[0],
+        zenHostname: 'localhost:8000',
+        user       : { id: users[0].id, roles: ['cdf-admin'] },
+      }, (err, { id }) => {
+        if (err) return done(err);
+        expect(id).to.be.ok;
+        eventsEntity.load$({ id }, (err, event) => {
           if (err) return done(err);
-
-          expect(id).to.be.ok;
-
-          eventsEntity.load$({ id }, (err, event) => {
-            if (err) return done(err);
-            expect(event).not.to.be.empty;
-
-            expect(event).to.exist;
-            expect(event).to.be.ok;
-
-            const expectedFields = [
-              'id',
-              'country',
-              'name',
-              'city',
-              'address',
-              'type',
-              'description',
-              'dojoId',
-              'position',
-              'public',
-              'status',
-              'recurringType',
-              'dates',
-              'ticketApproval',
-            ];
-            const actualFields = Object.keys(event);
-            _.each(expectedFields, field => {
-              expect(actualFields).to.include(field);
-            });
-
-            done(null, event);
+          expect(event).not.to.be.empty;
+          expect(event).to.exist;
+          expect(event).to.be.ok;
+          const expectedFields = [
+            'id',
+            'country',
+            'name',
+            'city',
+            'address',
+            'type',
+            'description',
+            'dojoId',
+            'position',
+            'public',
+            'status',
+            'recurringType',
+            'dates',
+            'ticketApproval',
+          ];
+          const actualFields = Object.keys(event);
+          _.each(expectedFields, field => {
+            expect(actualFields).to.include(field);
           });
-        },
-      );
+
+          done(null, event);
+        });
+      });
     });
   });
 });

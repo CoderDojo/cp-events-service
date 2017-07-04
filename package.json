@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node service.js",
     "lint": "eslint .",
-    "test": "bash -c 'source ./config/development.env; eslint . --fix && lab --ignore __core-js_shared__ --flat --threshold 48 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout'",
+    "test": "bash -c 'source ./config/development.env; yarn format && lab --ignore __core-js_shared__ --flat --threshold 48 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout'",
     "testdata": "node test/lib/service.js",
-    "lint:fix": "eslint . --fix"
+    "format": "prettier-eslint --print-width 120 --write **/*.js"
   },
   "pre-commit": [
     "test"
@@ -32,6 +32,7 @@
     "eslint-plugin-standard": "3.0.1",
     "lab": "^14.0.1",
     "pre-commit": "1.1.2",
+    "prettier-eslint-cli": "^4.1.1",
     "sinon": "1.16.1"
   },
   "dependencies": {

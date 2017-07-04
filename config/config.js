@@ -2,17 +2,17 @@
 const path = require('path');
 
 module.exports = options => {
-  function pgConfig () {
+  function pgConfig() {
     return {
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       name    : process.env.POSTGRES_NAME,
       host    : process.env.POSTGRES_HOST || '127.0.0.1',
       port    : process.env.POSTGRES_PORT || 5432,
-      options : { },
+      options : {},
     };
   }
-  function kueConfig () {
+  function kueConfig() {
     return {
       start: process.env.KUE_REQUIRED,
       redis: {

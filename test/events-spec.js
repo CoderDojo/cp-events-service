@@ -102,7 +102,8 @@ lab.experiment('Events Microservice test', () => {
       (index, next) => {
         dojos[index].userId = users[index].id;
         saveDojo(dojos[index], next);
-      }, done
+      },
+      done
     );
   });
 
@@ -115,7 +116,8 @@ lab.experiment('Events Microservice test', () => {
           item.dojoId = dojos[0].id;
           saveUsersDojo(item, callback);
         });
-      }, err => {
+      },
+      err => {
         if (err) return done(err);
         done();
       }
@@ -129,48 +131,51 @@ lab.experiment('Events Microservice test', () => {
       events[0].dates[0].startTime = now.setDate(now.getDate() + 5);
       events[0].dates[0].endTime = now.setTime(now.getTime() + 3 * 60 * 60 * 1000);
 
-      seneca.act({
-        role,
-        cmd        : 'saveEvent',
-        eventInfo  : events[0],
-        zenHostname: 'localhost:8000',
-        user       : { id: users[0].id, roles: ['cdf-admin'] },
-      }, (err, { id }) => {
-        if (err) return done(err);
-
-        expect(id).to.be.ok;
-
-        eventsEntity.load$({ id: id }, (err, event) => {
+      seneca.act(
+        {
+          role,
+          cmd        : 'saveEvent',
+          eventInfo  : events[0],
+          zenHostname: 'localhost:8000',
+          user       : { id: users[0].id, roles: ['cdf-admin'] },
+        },
+        (err, { id }) => {
           if (err) return done(err);
-          expect(event).not.to.be.empty;
 
-          expect(event).to.exist;
-          expect(event).to.be.ok;
+          expect(id).to.be.ok;
 
-          const expectedFields = [
-            'id',
-            'country',
-            'name',
-            'city',
-            'address',
-            'type',
-            'description',
-            'dojoId',
-            'position',
-            'public',
-            'status',
-            'recurringType',
-            'dates',
-            'ticketApproval',
-          ];
-          const actualFields = Object.keys(event);
-          _.each(expectedFields, field => {
-            expect(actualFields).to.include(field);
+          eventsEntity.load$({ id: id }, (err, event) => {
+            if (err) return done(err);
+            expect(event).not.to.be.empty;
+
+            expect(event).to.exist;
+            expect(event).to.be.ok;
+
+            const expectedFields = [
+              'id',
+              'country',
+              'name',
+              'city',
+              'address',
+              'type',
+              'description',
+              'dojoId',
+              'position',
+              'public',
+              'status',
+              'recurringType',
+              'dates',
+              'ticketApproval',
+            ];
+            const actualFields = Object.keys(event);
+            _.each(expectedFields, field => {
+              expect(actualFields).to.include(field);
+            });
+
+            done(null, event);
           });
-
-          done(null, event);
-        });
-      });
+        }
+      );
     });
   });
 });

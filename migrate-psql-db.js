@@ -1,4 +1,4 @@
-'use strict';
+
 
 const postgrator = require('postgrator');
 const config = require('./config/config.js')();
@@ -15,8 +15,6 @@ module.exports = function migrate(cb) {
   });
 
   postgrator.migrate('max', (err, migrations) => {
-    postgrator.endConnection(() => {
-      return cb(err, migrations);
-    });
+    postgrator.endConnection(() => cb(err, migrations));
   });
 };

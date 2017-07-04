@@ -1,7 +1,8 @@
-'use strict';
+
 
 const config = require('../../config/config.js')({ port: 11306 });
 const seneca = require('seneca')(config);
+
 const service = 'cp-events-test';
 const dgram = require('dgram');
 seneca.use(require('./insert-test-events'));

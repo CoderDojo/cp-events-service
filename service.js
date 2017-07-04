@@ -1,8 +1,7 @@
-'use strict';
-
 process.setMaxListeners(0);
-require('events').EventEmitter.prototype._maxListeners = 100;
+const events = require('events');
 
+events.EventEmitter.prototype._maxListeners = 100;
 if (process.env.NEW_RELIC_ENABLED === 'true') require('newrelic');
 
 const config = require('./config/config.js')();
@@ -11,9 +10,12 @@ const util = require('util');
 const _ = require('lodash');
 const dgram = require('dgram');
 const store = require('seneca-postgresql-store');
-const service = 'cp-events-service';
+const network = require('./network');
 const sanitizeHtml = require('sanitize-html');
+
+const service = 'cp-events-service';
 const log = require('cp-logs-lib')({ name: service, level: 'warn' });
+
 config.log = log.log;
 
 console.log('using config', JSON.stringify(config, null, 2));
@@ -39,6 +41,7 @@ seneca.options.sanitizeTextArea = {
   }),
 };
 seneca.decorate('customValidatorLogFormatter', require('./lib/custom-validator-log-formatter'));
+
 seneca.use(store, config.postgresql);
 seneca.use(require('seneca-entity'));
 seneca.use(require('./lib/cd-events'), { logger: log.logger });
@@ -49,14 +52,15 @@ seneca.use(require('cp-permissions-plugin'), {
 seneca.use(require('seneca-queue'));
 seneca.use(require('seneca-kue'));
 seneca.use(require('./lib/queues'), { config: config.kue });
+
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 process.on('uncaughtException', shutdown);
 
 function shutdown(err) {
-  const stopQueue = seneca.export('queues/queue')['stopQueue'];
+  const stopQueue = seneca.export('queues/queue').stopQueue;
   stopQueue();
-  if (err !== void 0 && err.stack !== void 0) {
+  if (!_.isUndefined(err) && !_.isUndefined(err.stack)) {
     console.error(`${new Date().toString()} FATAL: UncaughtException, please report: ${util.inspect(err)}`);
     console.error(util.inspect(err.stack));
     console.trace();
@@ -71,7 +75,7 @@ require('./migrate-psql-db.js')(err => {
   }
   console.log('Migrations ok');
 
-  require('./network')(seneca);
+  network(seneca);
 
   seneca.ready(err => {
     if (err) return shutdown(err);

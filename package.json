@@ -6,13 +6,16 @@
   "scripts": {
     "start": "node service.js",
     "lint": "eslint .",
-    "test": "bash -c 'source ./config/development.env; yarn format && lab --ignore __core-js_shared__ --flat --threshold 48 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout'",
+    "test": "bash -c 'source ./config/development.env; yarn lint && lab --ignore __core-js_shared__ --flat --threshold 48 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout'",
     "testdata": "node test/lib/service.js",
-    "format": "prettier-eslint --write **/*.js"
+    "precommit": "lint-staged && yarn test"
   },
-  "pre-commit": [
-    "test"
-  ],
+  "lint-staged": {
+    "*.js": [
+      "eslint . --fix",
+      "git add"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/CoderDojo/cp-events-service.git"
@@ -24,15 +27,16 @@
   },
   "devDependencies": {
     "chai": "2.2.0",
-    "eslint": "3.19.0",
-    "eslint-config-standard": "10.2.1",
-    "eslint-plugin-import": "^2.2.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.6.1",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-node": "^4.2.2",
     "eslint-plugin-promise": "3.5.0",
     "eslint-plugin-standard": "3.0.1",
+    "husky": "^0.14.2",
     "lab": "^14.0.1",
-    "pre-commit": "1.1.2",
-    "prettier-eslint-cli": "^4.1.1",
+    "lint-staged": "^4.0.0",
     "sinon": "1.16.1"
   },
   "dependencies": {
@@ -42,6 +46,7 @@
     "cp-permissions-plugin": "git://github.com/CoderDojo/cp-permissions-plugin#1.0.2",
     "cp-translations": "^1.0.22",
     "ejs": "2.5.6",
+    "eslint-plugin-react": "^7.0.1",
     "js-yaml": "3.2.7",
     "json2csv": "2.11.0",
     "le_node": "1.1.0",

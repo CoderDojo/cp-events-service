@@ -1,8 +1,7 @@
-'use strict';
-
 process.env.SALESFORCE_ENABLED = 'true';
 
 const seneca = require('seneca')();
+
 const config = require(`${__dirname}/../config/config.js`)();
 const pg = require('pg');
 const expect = require('chai').expect;
@@ -23,7 +22,7 @@ const usersDojos = require('./fixtures/usersdojos.json');
 seneca.options(config);
 
 seneca
-  /*.use(require(__dirname + '/stubs/cd-users.js'))
+  /* .use(require(__dirname + '/stubs/cd-users.js'))
  .use(require(__dirname + '/stubs/cd-profiles.js'))
  .use(require(__dirname + '/stubs/cd-dojos.js'))
  .use(require(__dirname + '/stubs/email-notifications.js'))*/
@@ -45,7 +44,7 @@ process.on('SIGINT', () => {
   const client = { query: _.noop, end: _.noop };
   sinon.mock(client).expects('query').atLeast(1).callsArgWith(2, null, { rows: [] });
   sinon.mock(pg).expects('connect').atLeast(1).callsArgWith(1, null, client);
-})();
+}());
 
 // NOTE: all tests are basic
 // they just follow the happy scenario for each exposed action
@@ -103,7 +102,7 @@ lab.experiment('Events Microservice test', () => {
         dojos[index].userId = users[index].id;
         saveDojo(dojos[index], next);
       },
-      done
+      done,
     );
   });
 
@@ -120,7 +119,7 @@ lab.experiment('Events Microservice test', () => {
       err => {
         if (err) return done(err);
         done();
-      }
+      },
     );
   });
 
@@ -144,7 +143,7 @@ lab.experiment('Events Microservice test', () => {
 
           expect(id).to.be.ok;
 
-          eventsEntity.load$({ id: id }, (err, event) => {
+          eventsEntity.load$({ id }, (err, event) => {
             if (err) return done(err);
             expect(event).not.to.be.empty;
 
@@ -174,7 +173,7 @@ lab.experiment('Events Microservice test', () => {
 
             done(null, event);
           });
-        }
+        },
       );
     });
   });

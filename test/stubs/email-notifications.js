@@ -1,6 +1,6 @@
-'use strict';
 
-module.exports = function() {
+
+module.exports = function () {
   const seneca = this;
   const plugin = 'email-notifications';
 

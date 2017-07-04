@@ -1,7 +1,5 @@
-'use strict';
+const perm = require('./perm/events');
 
-module.exports = function() {
-  return {
-    'cd-events': require('./perm/events')(),
-  };
-};
+module.exports = () => ({
+  'cd-events': perm(),
+});

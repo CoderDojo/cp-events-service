@@ -1,63 +1,54 @@
 {
-  'env': {
-    'es6'    : true,
-    'node'   : true,
+  env: {
+    es6    : true,
+    node   : true,
   },
-  'extends': ['eslint:recommended'],
-  'rules'  : {
-    'strict': [
-      2,
-     'global'
-    ],
-    'indent': [
-      'error',
-      2,
-    ],
-    'linebreak-style': [
+  extends: ['airbnb'],
+  rules  : {
+    linebreak-style: [
       'error',
       'unix',
     ],
-    'quotes': [
+    arrow-parens: ['error', 'as-needed'],
+    func-style: [
       'error',
-      'single',
-    ],
-    'semi': [
-      'error',
-      'always',
-    ],
-    'comma-dangle': [
-      'error',
-      'always-multiline',
-    ],
-    'key-spacing': [
-      'error',
+      'declaration',
       {
-        'multiLine': {
-          'beforeColon': false,
-          'afterColon' : true,
-        },
-        'align': {
-          'beforeColon': false,
-          'afterColon' : true,
-          'on'         : 'colon',
-          'mode'       : 'strict',
-        },
-      },
-    ],
-    'no-var': [
-      'error',
-    ],
-    'prefer-arrow-callback': [
-      'error',
-      {
-        'allowNamedFunctions': true
+        allowArrowFunctions: true
       }
     ],
-    'prefer-const': [
-      'error',
+    no-use-before-define: [
+      error,
       {
-        'destructuring'         : 'any',
-        'ignoreReadBeforeAssign': false,
+        functions: false
+      }
+    ],
+    no-shadow: [
+      error,
+      {
+        builtinGlobals: true,
+        hoist: 'functions',
+        allow: [
+          'resolve',
+          'reject',
+          'err',
+        ]
+      }
+    ],
+    consistent-return: 0,
+    key-spacing: [
+      error,
+      {
+        multiLine: {
+          beforeColon: false,
+          afterColon : true,
+        },
+        align: {
+          beforeColon: false,
+          afterColon : true,
+          on         : 'colon',
+          mode       : 'strict',
+        },
       },
     ],
   },

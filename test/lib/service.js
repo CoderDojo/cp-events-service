@@ -1,5 +1,3 @@
-
-
 const config = require('../../config/config.js')({ port: 11306 });
 const seneca = require('seneca')(config);
 

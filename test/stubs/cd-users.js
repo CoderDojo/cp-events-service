@@ -1,6 +1,4 @@
-
-
-module.exports = function () {
+function cdUsers() {
   const seneca = this;
   const plugin = 'cd-users';
 
@@ -28,4 +26,6 @@ module.exports = function () {
   return {
     name: plugin,
   };
-};
+}
+
+module.exports = cdUsers;

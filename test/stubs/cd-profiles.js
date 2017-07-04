@@ -1,6 +1,4 @@
-
-
-module.exports = function () {
+function cdProfiles() {
   const seneca = this;
   const plugin = 'cd-profiles';
 
@@ -23,4 +21,6 @@ module.exports = function () {
   return {
     name: plugin,
   };
-};
+}
+
+module.exports = cdProfiles;

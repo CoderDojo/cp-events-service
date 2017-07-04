@@ -1,4 +1,4 @@
-module.exports = function () {
+function cdDojos() {
   const seneca = this;
   const plugin = 'cd-countries';
 
@@ -70,10 +70,12 @@ module.exports = function () {
     return (args, done) => cb(args, done);
   }
 
+  /* eslint camelcase: ["error", {properties: "never"}]*/
   function cmd_search(args, done) {
     done(new Error('action not stubbed!'), null);
   }
 
+  /* eslint camelcase: 2*/
   function cmd_list(args, done) {
     done(new Error('action not stubbed!'), null);
   }
@@ -268,4 +270,6 @@ module.exports = function () {
   return {
     name: plugin,
   };
-};
+}
+
+module.exports = cdDojos;

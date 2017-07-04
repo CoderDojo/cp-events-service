@@ -10,6 +10,7 @@
       'unix',
     ],
     arrow-parens: ['error', 'as-needed'],
+    no-param-reassign: ['error', { props: false }],
     func-style: [
       'error',
       'declaration',

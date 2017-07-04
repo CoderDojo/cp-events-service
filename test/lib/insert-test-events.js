@@ -1,14 +1,13 @@
-
-
 const _ = require('lodash');
 const async = require('async');
+const events = require('../fixtures/e2e/events');
+const applications = require('../fixtures/e2e/applications');
 
-module.exports = function () {
+function insertTestEvents() {
   const seneca = this;
   const plugin = 'test-event-data';
 
   seneca.add({ role: plugin, cmd: 'insert', entity: 'event' }, (args, done) => {
-    const events = require('../fixtures/e2e/events');
     let dojo = {};
     async.eachSeries(events, (event, sCb) => {
       seneca.act({ role: 'cd-dojos', cmd: 'list', query: { email: event.dojo } }, (err, dojos) => {
@@ -27,9 +26,12 @@ module.exports = function () {
   });
 
   seneca.add({ role: plugin, cmd: 'insert', entity: 'application' }, (args, done) => {
-    const applications = require('../fixtures/e2e/applications');
-
-    async.eachSeries(applications, ({ eventName, ticketName, userEmail, userName }, cb) => {
+    async.eachSeries(applications, ({
+      eventName,
+      ticketName,
+      userEmail,
+      userName,
+    }, cb) => {
       async.waterfall([
         getEvent,
         getTicket,
@@ -42,7 +44,7 @@ module.exports = function () {
           role : 'cd-events',
           cmd  : 'listEvents',
           query: { name: eventName },
-        }, (err, events) => wfCb(null, events[0]));
+        }, (err, eventList) => wfCb(null, eventList[0]));
       }
 
       function getTicket(event, wfCb) {
@@ -91,4 +93,6 @@ module.exports = function () {
   return {
     name: plugin,
   };
-};
+}
+
+module.exports = insertTestEvents;

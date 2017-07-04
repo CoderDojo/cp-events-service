@@ -1,16 +1,16 @@
-
-
-module.exports = function () {
+function sendTest() {
   const seneca = this;
   const plugin = 'email-notifications';
 
-  seneca.add({ role: plugin, cmd: 'send' }, cmd_send);
+  seneca.add({ role: plugin, cmd: 'send' }, cmdSend);
 
-  function cmd_send(args, done) {
+  function cmdSend(args, done) {
     done();
   }
 
   return {
     name: plugin,
   };
-};
+}
+
+module.exports = sendTest;

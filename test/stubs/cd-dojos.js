@@ -1,5 +1,3 @@
-
-
 module.exports = function () {
   const seneca = this;
   const plugin = 'cd-countries';

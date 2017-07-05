@@ -119,7 +119,17 @@ module.exports = function () {
       role: 'basic-user'
     }],
     'validateSessionInvitation': [{
-      role: 'basic-user'
+      role: 'basic-user',
+      customValidator: [{
+        role: 'cd-events',
+        cmd: 'is_own_invitation'
+      }]
+    }, {
+      role: 'basic-user',
+      customValidator: [{
+        role: 'cd-events',
+        cmd: 'is_parent_of_invited'
+      }]
     }],
     'loadTicket': [{
       role: 'basic-user'

@@ -1,163 +1,166 @@
-'use strict';
-
 process.env.SALESFORCE_ENABLED = 'true';
 
-var seneca = require('seneca')(),
-  config = require(__dirname + '/../config/config.js')(),
-  fs = require('fs'),
-  pg = require('pg'),
-  expect = require('chai').expect,
-  util = require('util'),
-  _ = require('lodash'),
-  async = require('async'),
-  sinon = require('sinon'),
-  logger = require('cp-logs-lib')({name:'cp-events-service'}).logger,
-  lab = exports.lab = require('lab').script();
+const seneca = require('seneca')();
 
-var role = "cd-events";
+const config = require('../config/config.js')();
+const pg = require('pg');
+const expect = require('chai').expect;
+const _ = require('lodash');
+const async = require('async');
+const sinon = require('sinon');
+const logger = require('cp-logs-lib')({ name: 'cp-events-service' }).logger;
+const lab = require('lab').script();
+exports.lab = require('lab').script();
 
-var users = require('./fixtures/users.json');
-var profiles = require('./fixtures/profiles.json');
-var events = require('./fixtures/events.json');
-var dojos = require('./fixtures/dojos.json');
-var usersDojos = require('./fixtures/usersdojos.json');
+const role = 'cd-events';
 
+const users = require('./fixtures/users.json');
+const profiles = require('./fixtures/profiles.json');
+const events = require('./fixtures/events.json');
+const dojos = require('./fixtures/dojos.json');
+const usersDojos = require('./fixtures/usersdojos.json');
 
 seneca.options(config);
 
 seneca
-/*.use(require(__dirname + '/stubs/cd-users.js'))
+  /* .use(require(__dirname + '/stubs/cd-users.js'))
  .use(require(__dirname + '/stubs/cd-profiles.js'))
  .use(require(__dirname + '/stubs/cd-dojos.js'))
  .use(require(__dirname + '/stubs/email-notifications.js'))*/
-  .use(require(__dirname + '/../lib/cd-events', {logger: logger}));
+  .use(require('../lib/cd-events', { logger }))
+  .use(require('seneca-entity'));
 
-var eventsEntity = seneca.make$('cd/events');
-var usersEntity = seneca.make$('sys/user');
-var profilesEntity = seneca.make$('cd/profiles');
-var dojosEntity = seneca.make$('cd/dojos');
-var usersDojosEntity = seneca.make$('cd/usersdojos');
-
+const eventsEntity = seneca.make('cd/events');
+const usersEntity = seneca.make('sys/user');
+const profilesEntity = seneca.make('cd/profiles');
+const dojosEntity = seneca.make('cd/dojos');
+const usersDojosEntity = seneca.make('cd/usersdojos');
 
 // this is unusually necessary
 // when interrupted, node doesn't stop without this
-process.on('SIGINT', function () {
+process.on('SIGINT', () => {
   process.exit(0);
 });
-
-(function mockPg () {
-  var client = {query: _.noop, end: _.noop};
-  sinon.mock(client).expects('query').atLeast(1).callsArgWith(2, null, {rows: []});
+(function mockPg() {
+  const client = { query: _.noop, end: _.noop };
+  sinon.mock(client).expects('query').atLeast(1).callsArgWith(2, null, { rows: [] });
   sinon.mock(pg).expects('connect').atLeast(1).callsArgWith(1, null, client);
-})();
+}());
 
 // NOTE: all tests are basic
 // they just follow the happy scenario for each exposed action
 
-function saveDojo (obj, done) {
+function saveDojo(obj, done) {
   dojosEntity.save$(obj, done);
 }
 
-function saveUsersDojo (obj, done) {
+function saveUsersDojo(obj, done) {
   usersDojosEntity.save$(obj, done);
 }
 
-function saveUser (user, cb) {
+function saveUser(user, cb) {
   usersEntity.save$(user, cb);
 }
 
-function saveProfile (profile, cb) {
+function saveProfile(profile, cb) {
   profilesEntity.save$(profile, cb);
 }
 
-lab.experiment('Events Microservice test', function () {
-
+lab.experiment('Events Microservice test', () => {
   // Empty Tables
-  lab.before(function (done) {
-    dojosEntity.remove$({all$: true}, done);
+  lab.before(done => {
+    dojosEntity.remove$({ all$: true }, done);
   });
 
-  lab.before(function (done) {
-    usersEntity.remove$({all$: true}, done);
+  lab.before(done => {
+    usersEntity.remove$({ all$: true }, done);
   });
 
-  lab.before(function (done) {
-    usersDojosEntity.remove$({all$: true}, done);
+  lab.before(done => {
+    usersDojosEntity.remove$({ all$: true }, done);
   });
 
-  lab.before(function (done) {
-    eventsEntity.remove$({all$: true}, done);
+  lab.before(done => {
+    eventsEntity.remove$({ all$: true }, done);
   });
 
-  lab.before(function (done) {
-    profilesEntity.remove$({all$: true}, done);
+  lab.before(done => {
+    profilesEntity.remove$({ all$: true }, done);
   });
 
-  lab.before(function (done) {
+  lab.before(done => {
     async.eachSeries(users, saveUser, done);
   });
 
-  lab.before(function (done) {
+  lab.before(done => {
     async.eachSeries(profiles, saveProfile, done);
   });
 
-  lab.before(function (done) {
-    seneca.util.recurse(1, function (index, next) {
+  lab.before(done => {
+    seneca.util.recurse(1, (index, next) => {
       dojos[index].userId = users[index].id;
       saveDojo(dojos[index], next);
     }, done);
   });
 
-  lab.before(function (done) {
-    async.eachSeries(usersDojos, function (item, callback) {
-      dojosEntity.list$(function (err, dojos) {
+  lab.before(done => {
+    async.eachSeries(usersDojos, (item, callback) => {
+      dojosEntity.list$((err, dojoList) => {
         if (err) return done(err);
-        item.dojoId = dojos[0].id;
+        item.dojoId = dojoList[0].id;
         saveUsersDojo(item, callback);
       });
-    }, function (err) {
+    }, err => {
       if (err) return done(err);
       done();
     });
   });
 
-  lab.experiment('Create', function () {
-    lab.test('event for dojo', function (done) {
-      var now = new Date();
+  lab.experiment('Create', () => {
+    lab.test('event for dojo', done => {
+      const now = new Date();
 
       events[0].dates[0].startTime = now.setDate(now.getDate() + 5);
       events[0].dates[0].endTime = now.setTime(now.getTime() + (3 * 60 * 60 * 1000));
 
       seneca.act({
-        role: role,
-        cmd: 'saveEvent',
-        eventInfo: events[0],
+        role,
+        cmd        : 'saveEvent',
+        eventInfo  : events[0],
         zenHostname: 'localhost:8000',
-        user: {id: users[0].id, roles: ['cdf-admin']}
-      }, function (err, savedEvent) {
+        user       : { id: users[0].id, roles: ['cdf-admin'] },
+      }, (err, { id }) => {
         if (err) return done(err);
-
-        expect(savedEvent.id).to.be.ok;
-
-        eventsEntity.load$({id: savedEvent.id}, function (err, event) {
+        expect(id).to.be.ok;
+        eventsEntity.load$({ id }, (err, event) => {
           if (err) return done(err);
           expect(event).not.to.be.empty;
-
           expect(event).to.exist;
           expect(event).to.be.ok;
-
-          var expectedFields = ['id', 'country', 'name', 'city',
-            'address', 'type', 'description', 'dojoId', 'position',
-            'public', 'status', 'recurringType', 'dates','ticketApproval'];
-          var actualFields = Object.keys(event);
-          _.each(expectedFields, function (field) {
+          const expectedFields = [
+            'id',
+            'country',
+            'name',
+            'city',
+            'address',
+            'type',
+            'description',
+            'dojoId',
+            'position',
+            'public',
+            'status',
+            'recurringType',
+            'dates',
+            'ticketApproval',
+          ];
+          const actualFields = Object.keys(event);
+          _.each(expectedFields, field => {
             expect(actualFields).to.include(field);
-          })
+          });
 
           done(null, event);
         });
       });
     });
   });
-
 });

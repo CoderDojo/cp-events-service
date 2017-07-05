@@ -1,16 +1,16 @@
-'use strict';
+function sendTest() {
+  const seneca = this;
+  const plugin = 'email-notifications';
 
-module.exports = function(options) {
-  var seneca = this;
-  var plugin = 'email-notifications';
+  seneca.add({ role: plugin, cmd: 'send' }, cmdSend);
 
-  seneca.add({role: plugin, cmd: 'send'}, cmd_send);
-
-  function cmd_send(args, done) {
+  function cmdSend(args, done) {
     done();
   }
 
   return {
-    name: plugin
+    name: plugin,
   };
-};
+}
+
+module.exports = sendTest;

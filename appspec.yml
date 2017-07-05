@@ -1,3 +1,4 @@
+---
 version: 0.0
 os: linux
 files:
@@ -10,7 +11,7 @@ permissions:
   - object: /opt/zen/cp-events-service
     owner: ubuntu
     group: ubuntu
-  
+
 hooks:
   ApplicationStop:
     - location: deploy/stop-server.sh
@@ -21,6 +22,3 @@ hooks:
     - location: deploy/start-server.sh
       timeout: 300
       runas: root
-
-  
-

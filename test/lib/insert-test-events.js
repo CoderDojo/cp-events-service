@@ -9,11 +9,9 @@ module.exports = function (options) {
 
   seneca.add({ role: plugin, cmd: 'insert', entity: 'event'}, function (args, done) {
     var events = require('../fixtures/e2e/events');
-    var index = 1;
     var dojo = {};
     async.eachSeries(events, function (event, sCb) {
-      seneca.act({role: 'cd-dojos', cmd: 'list', query: {name: 'dojo' + index}}, function (err, dojos) {
-        index ++;
+      seneca.act({role: 'cd-dojos', cmd: 'list', query: {email: event.dojo}}, function (err, dojos) {
         // Even if we run out of dojos, we can reuse the previous one
         if(!_.isEmpty(dojos)) dojo = dojos[0];
         var now = new Date();
@@ -22,9 +20,10 @@ module.exports = function (options) {
         event.dates[0].startTime = now.toISOString();
         now.setTime(now.getTime() + (3 * 60 * 60 * 1000));
         event.dates[0].endTime = now.toISOString();
-        seneca.act({role: 'cd-events', cmd: 'saveEvent', eventInfo: event }, sCb);
+        delete event.dojo;
+        seneca.act({role: 'cd-events', cmd: 'saveEvent', eventInfo: event}, sCb);
       });
-    }, function (err, events){
+    }, function (err, events) {
       done();
     });
   });

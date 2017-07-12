@@ -11,7 +11,7 @@ module.exports = function () {
     }],
     //  TODO: verify this one, seems meh to me
     'getEvent': [{
-      role: 'basic-user'
+      role: 'none'
     }],
     'listEvents': [{
       role: 'basic-user'
@@ -42,21 +42,31 @@ module.exports = function () {
       customValidator: [{
       	role: 'cd-events',
       	cmd: 'is_ticketing_admin'
-      }]
+      }],
+    },
+    {
+      role: 'basic-user',
+      customValidator: [{
+        role: 'cd-events',
+        cmd: 'is_own_application'
+      }],
+    },
+    {
+      role: 'basic-user',
+      customValidator: [{
+        role: 'cd-events',
+        cmd: 'is_parent_of_applicant'
+      }],
     }],
     'saveApplication': [{
       role: 'basic-user'
     }],
     //  TODO: straighten?
     'userDojosEvents': [{
-      role: 'basic-user',
-      customValidator: [{
-        role: 'cd-dojos',
-        cmd: 'belongs_to_dojo'
-      }]
+      role: 'basic-user'
     }],
     'ticketTypes': [{
-      role: 'basic-user'
+      role: 'none'
     }],
     'exportGuestList': [{
       role: 'basic-user',
@@ -66,11 +76,7 @@ module.exports = function () {
       }]
     }],
     'searchSessions': [{
-      role: 'basic-user',
-      customValidator: [{
-      	role: 'cd-events',
-      	cmd: 'is_ticketing_admin'
-      }]
+      role: 'none'
     }],
     'saveSession': [{
       role: 'basic-user',
@@ -113,7 +119,17 @@ module.exports = function () {
       role: 'basic-user'
     }],
     'validateSessionInvitation': [{
-      role: 'basic-user'
+      role: 'basic-user',
+      customValidator: [{
+        role: 'cd-events',
+        cmd: 'is_own_invitation'
+      }]
+    }, {
+      role: 'basic-user',
+      customValidator: [{
+        role: 'cd-events',
+        cmd: 'is_parent_of_invited'
+      }]
     }],
     'loadTicket': [{
       role: 'basic-user'

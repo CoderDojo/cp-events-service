@@ -22,8 +22,11 @@ seneca.ready(function() {
   });
 });
 
-
-
 require('../../network.js')(seneca);
 // Add "its" µs as a dependency
-seneca.client({ type: 'web', port: 10306, pin: { role: 'cd-events', cmd: '*' } });
+seneca.client({
+  type: 'web',
+  host: process.env.CD_EVENTS || 'localhost',
+  port: 10306,
+  pin: { role: 'cd-events', cmd: '*' }
+});

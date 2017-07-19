@@ -2,7 +2,12 @@
 
 set -e
 
-docker build --rm=false -t coderdojo/cp-events-service:"$CIRCLE_SHA1" .
+if [ "$CIRCLE_BRANCH" = "staging" ]; then
+  DEP_VER=staging
+else
+  DEP_VER=latest
+fi
+docker build --rm=false --build-arg DEP_VERSION=$DEP_VER -t coderdojo/cp-events-service:"$CIRCLE_SHA1" .
 docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
 docker push coderdojo/cp-event-service:"$CIRCLE_SHA1"
 sudo chown -R ubuntu:ubuntu /home/ubuntu/.kube

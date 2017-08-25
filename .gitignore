@@ -40,3 +40,4 @@ web/.build
 .DS_Store
 *~
 .idea
+.pkg.sha1

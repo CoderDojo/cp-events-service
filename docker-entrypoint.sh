@@ -5,4 +5,4 @@ if [ ! -d "node_modules" ]; then
   rm -rf node_modules/cp-translations
   ln -s /usr/src/cp-translations node_modules/cp-translations
 fi
-npm dev
+npm run dev

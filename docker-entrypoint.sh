@@ -1,6 +1,8 @@
 #! /usr/bin/env sh
-cd /usr/src/cp-translations || exit
-npm link
 cd /usr/src/app || exit
-npm install && npm link cp-translations
-nodemon service.js
+if [ ! -d "node_modules" ]; then
+  npm install
+  rm -rf node_modules/cp-translations
+  ln -s /usr/src/cp-translations node_modules/cp-translations
+fi
+npm dev

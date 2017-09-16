@@ -133,6 +133,11 @@ module.exports = function () {
     }],
     'loadTicket': [{
       role: 'basic-user'
-    }]
+    }],
+    'application': {
+      'list': {
+        role: 'basic-user'
+      }
+    }
   };
 };

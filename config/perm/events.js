@@ -134,7 +134,7 @@ module.exports = function () {
     'loadTicket': [{
       role: 'basic-user'
     }],
-    'application': {
+    'applications': {
       'list': {
         role: 'basic-user'
       }

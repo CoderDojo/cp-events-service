@@ -50,6 +50,7 @@ seneca.use(require('./lib/queues'), {config: config.kue});
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 process.on('uncaughtException', shutdown);
+Process.on('SIGUSR2', shutdown);
 
 function shutdown (err) {
   var stopQueue = seneca.export('queues/queue')['stopQueue'];

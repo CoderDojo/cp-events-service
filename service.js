@@ -12,10 +12,12 @@ var store = require('seneca-postgresql-store');
 var dgram = require('dgram');
 var service = 'cp-events-service';
 var sanitizeHtml = require('sanitize-html');
-var log = require('cp-logs-lib')({name: service, level: 'warn'});
+var log = require('cp-logs-lib')({ name: service, level: 'warn' });
 config.log = log.log;
 
-seneca.log.info('using config', JSON.stringify(config, null, 4));
+if (process.env.NODE_ENV !== 'production') {
+  seneca.log.info('using config', JSON.stringify(config, null, 4));
+}
 seneca.options(config);
 /**
  * TextArea fields contains user generated html.
@@ -39,26 +41,33 @@ seneca.options.sanitizeTextArea = {
 };
 seneca.decorate('customValidatorLogFormatter', require('./lib/custom-validator-log-formatter'));
 seneca.use(store, config['postgresql-store']);
-seneca.use(require('./lib/cd-events'), {logger: log.logger});
+seneca.use(require('./lib/cd-events'), { logger: log.logger });
 seneca.use(require('cp-permissions-plugin'), {
   config: __dirname + '/config/permissions'
 });
 
 seneca.use(require('seneca-queue'));
 seneca.use(require('seneca-kue'));
-seneca.use(require('./lib/queues'), {config: config.kue});
+seneca.use(require('./lib/queues'), { config: config.kue });
+
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 process.on('uncaughtException', shutdown);
 process.on('SIGUSR2', shutdown);
 
 function shutdown (err) {
-  var stopQueue = seneca.export('queues/queue')['stopQueue'];
+  var stopQueue = seneca.export('queues/queue').stopQueue;
   stopQueue();
-  if (err !== void 0 && err.stack !== void 0) {
-    console.error(new Date().toString() + ' FATAL: UncaughtException, please report: ' + util.inspect(err));
-    console.error(util.inspect(err.stack));
-    console.trace();
+  if (err !== undefined) {
+    var error = {
+      date: new Date().toString(),
+      msg: err.stack !== undefined
+        ? 'FATAL: UncaughtException, please report: ' + util.inspect(err.stack)
+        : 'FATAL: UncaughtException, no stack trace',
+      err: util.inspect(err)
+    };
+    console.error(JSON.stringify(error));
+    process.exit(1);
   }
   process.exit(0);
 }
@@ -86,7 +95,11 @@ require('./migrate-psql-db.js')(function (err) {
       seneca.wrap('role: entity, cmd: ' + cmd, function filterFields (args, cb) {
         try {
           ['limit$', 'skip$'].forEach(function (field) {
-            if (args.q[field] && args.q[field] !== 'NULL' && !/^[0-9]+$/g.test(args.q[field] + '')) {
+            if (
+              args.q[field] &&
+              args.q[field] !== 'NULL' &&
+              !/^[0-9]+$/g.test(args.q[field] + '')
+            ) {
               throw new Error('Expect limit$, skip$ to be a number');
             }
           });

@@ -58,10 +58,12 @@ process.on('SIGUSR2', shutdown);
 function shutdown (err) {
   var stopQueue = seneca.export('queues/queue').stopQueue;
   stopQueue();
-  if (err !== undefined && err.stack !== undefined) {
+  if (err !== undefined) {
     var error = {
       date: new Date().toString(),
-      msg: 'FATAL: UncaughtException, please report: ' + util.inspect(err.stack),
+      msg: err.stack !== undefined
+        ? 'FATAL: UncaughtException, please report: ' + util.inspect(err.stack)
+        : 'FATAL: UncaughtException, no stack trace',
       err: util.inspect(err)
     };
     console.error(JSON.stringify(error));

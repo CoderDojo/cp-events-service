@@ -1,5 +1,6 @@
 FROM mhart/alpine-node:0.10.48
 MAINTAINER butlerx <butlerx@notthe.cloud>
+ENV NODE_ENV=development
 RUN apk add --update git build-base python postgresql-client && \
     mkdir -p /usr/src/app /usr/src/cp-translations
 COPY docker-entrypoint.sh /usr/src

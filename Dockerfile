@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:0.10.48
+FROM node:8-alpine
 MAINTAINER butlerx <butlerx@notthe.cloud>
 ENV NODE_ENV=production
 ARG DEP_VERSION=latest

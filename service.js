@@ -9,6 +9,7 @@ var seneca = require('seneca')(config);
 var util = require('util');
 var _ = require('lodash');
 var store = require('seneca-postgresql-store');
+var storeQuery = require('seneca-store-query');
 var dgram = require('dgram');
 var service = 'cp-events-service';
 var sanitizeHtml = require('sanitize-html');
@@ -41,6 +42,7 @@ seneca.options.sanitizeTextArea = {
 };
 seneca.decorate('customValidatorLogFormatter', require('./lib/custom-validator-log-formatter'));
 seneca.use(store, config['postgresql-store']);
+seneca.use(storeQuery);
 seneca.use(require('./lib/cd-events'), { logger: log.logger });
 seneca.use(require('cp-permissions-plugin'), {
   config: __dirname + '/config/permissions'
@@ -90,7 +92,7 @@ require('./migrate-psql-db.js')(function (err) {
       client.close();
     });
 
-    var escape = require('seneca-postgresql-store/lib/relational-util').escapeStr;
+    var escape = require('seneca-store-query/lib/relational-util').escapeStr;
     ['load', 'list'].forEach(function (cmd) {
       seneca.wrap('role: entity, cmd: ' + cmd, function filterFields (args, cb) {
         try {

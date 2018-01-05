@@ -13,14 +13,14 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Install Dependencies
-          command: npm install
+          command: yarn
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
       - run:
           name: Tests
-          command: npm run test
+          command: yarn test
   deploy:
     working_directory: ~/cp-events-service
     docker:

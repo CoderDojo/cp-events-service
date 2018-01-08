@@ -3,7 +3,7 @@ set -e
 cd /usr/src/app || exit
 touch .pkg.sha1
 OLD_SHA=$(cat .pkg.sha1)
-NEW_SHA=$(sha1sum package.json)
+NEW_SHA=$(sha1sum yarn.lock)
 if [ "$OLD_SHA" != "$NEW_SHA" ]; then
   echo "$NEW_SHA" > .pkg.sha1
   yarn install

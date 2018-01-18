@@ -10,8 +10,11 @@
 exports.config = {
   app_name: ['cp-events-service'],
   agent_enabled: false, // set via NEW_RELIC_ENABLED for production
-  license_key: '',      // set via NEW_RELIC_LICENSE_KEY
+  license_key: '', // set via NEW_RELIC_LICENSE_KEY
   filepath: '/tmp/newrelic_agent_events.log',
+  transaction_tracer: {
+    record_sql: 'obfuscated'
+  },
   logging: {
     /**
      * Level at which to log. 'trace' is most useful to New Relic when diagnosing

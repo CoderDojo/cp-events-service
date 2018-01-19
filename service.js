@@ -2,7 +2,8 @@
 process.setMaxListeners(0);
 require('events').EventEmitter.prototype._maxListeners = 100;
 
-if (process.env.NEW_RELIC_ENABLED === 'true') require('newrelic');
+const senecaNR = require('seneca-newrelic');
+const newrelic = process.env.NEW_RELIC_ENABLED === 'true' ? require('newrelic') : undefined;
 
 var config = require('./config/config.js')();
 var seneca = require('seneca')(config);
@@ -40,13 +41,25 @@ seneca.options.sanitizeTextArea = {
     img: ['*']
   })
 };
-seneca.decorate('customValidatorLogFormatter', require('./lib/custom-validator-log-formatter'));
 seneca.use(store, config['postgresql-store']);
 seneca.use(storeQuery);
+seneca.decorate('customValidatorLogFormatter', require('./lib/custom-validator-log-formatter'));
 seneca.use(require('./lib/cd-events'), { logger: log.logger });
 seneca.use(require('cp-permissions-plugin'), {
-  config: __dirname + '/config/permissions'
+  config: `${__dirname}/config/permissions`
 });
+
+if (!_.isUndefined(newrelic)) {
+  seneca.use(senecaNR, {
+    newrelic,
+    roles: ['cd-events'],
+    filter (p) {
+      p.user = p.user ? p.user.id : undefined;
+      p.login = p.login ? p.login.id : undefined;
+      return p;
+    }
+  });
+}
 
 seneca.use(require('seneca-queue'));
 seneca.use(require('seneca-kue'));

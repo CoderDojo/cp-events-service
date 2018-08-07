@@ -920,9 +920,9 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
     async "^2.0.0-rc.5"
     lodash "^4.13.1"
 
-cp-translations@^1.0.22:
-  version "1.0.83"
-  resolved "https://registry.yarnpkg.com/cp-translations/-/cp-translations-1.0.83.tgz#fcedb23cf0482c2ce70969543db2e9d759e2c6e5"
+cp-translations@^1.0.109:
+  version "1.0.109"
+  resolved "https://registry.yarnpkg.com/cp-translations/-/cp-translations-1.0.109.tgz#66ddab1fc5d16afb869d048e891ff5fb736ea3a3"
 
 cross-spawn-async@^2.0.0:
   version "2.2.5"

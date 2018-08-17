@@ -143,7 +143,7 @@ require('./migrate-psql-db.js')(function (err) {
               // Loop over each detected insecureProp being used (nin or in)
               detected.forEach((col, key) => {
                 const ids = value[col];
-                // Loop over each value of the array of the dangerous field 
+                // Loop over each value of the array of the dangerous field
                 ids.forEach((id) => {
                   if (!/^[a-zA-Z0-9-]+$/g.test(id)) {
                     throw new Error(`Unexpected characters in ${col}`);

@@ -1,0 +1,1 @@
+ALTER TABLE cd_events ADD column published_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NULL;

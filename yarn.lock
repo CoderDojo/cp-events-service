@@ -920,10 +920,10 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
     async "^2.0.0-rc.5"
     lodash "^4.13.1"
 
-cp-translations@^1.0.146:
-  version "1.0.146"
-  resolved "https://registry.yarnpkg.com/cp-translations/-/cp-translations-1.0.146.tgz#dee5c55263fb31c7c5c3e4e8fd573f3a05921f8d"
-  integrity sha512-h2DRtFybsA2tvcnWg8FI5ZmxyBgavMDr9F+Cp0e78VgyJJusJLPvuSSHHtUxwnYKNsrdgCWZKnPwRkwJXXJtsQ==
+cp-translations@^1.0.149:
+  version "1.0.149"
+  resolved "https://registry.yarnpkg.com/cp-translations/-/cp-translations-1.0.149.tgz#e09845115a80380cf19c49dfd003d8ed75578690"
+  integrity sha512-AQa/d/MDNAM8y70gWbE6a65R9ZUYP11WWOF056Eq8Ttngdzg6j1WsmkV4VuZQB5NSIYrZIuM2UoCWIOfC20kmw==
 
 cross-spawn-async@^2.0.0:
   version "2.2.5"
@@ -3082,9 +3082,10 @@ lodash@4.15.0:
   version "4.15.0"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.15.0.tgz#3162391d8f0140aa22cf8f6b3c34d6b7f63d3aa9"
 
-lodash@4.17.10:
-  version "4.17.10"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
+lodash@4.17.13, lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.3.0:
+  version "4.17.13"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.13.tgz#0bdc3a6adc873d2f4e0c4bac285df91b64fc7b93"
+  integrity sha512-vm3/XWXfWtRua0FkUyEHBZy8kCPjErNBT9fJx8Zvs+U6zjqPbTUOpkaoum3O5uiA8sm+yNMHXfYkTUHFoMxFNA==
 
 lodash@4.2.1:
   version "4.2.1"
@@ -3097,10 +3098,6 @@ lodash@4.5.0:
 lodash@4.5.1, lodash@4.5.x:
   version "4.5.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.5.1.tgz#80e8a074ca5f3893a6b1c10b2a636492d710c316"
-
-lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.3.0:
-  version "4.17.4"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
 lolex@^1.6.0:
   version "1.6.0"

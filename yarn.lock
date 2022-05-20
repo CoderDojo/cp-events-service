@@ -898,32 +898,32 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
-"cp-i18n-lib@git://github.com/CoderDojo/cp-i18n-lib.git":
+"cp-i18n-lib@https://github.com/CoderDojo/cp-i18n-lib.git":
   version "1.0.0"
-  resolved "git://github.com/CoderDojo/cp-i18n-lib.git#eb0b614a9b86d93065a3df5ff894e1db3859ee12"
+  resolved "https://github.com/CoderDojo/cp-i18n-lib.git#eb0b614a9b86d93065a3df5ff894e1db3859ee12"
   dependencies:
     jed "^1.1.0"
     po2json "^0.4.2"
 
-"cp-logs-lib@git://github.com/CoderDojo/cp-logs-lib#1.1.0":
+"cp-logs-lib@https://github.com/CoderDojo/cp-logs-lib#1.1.0":
   version "1.1.0"
-  resolved "git://github.com/CoderDojo/cp-logs-lib#5c65480d0605546cf65e6f9b9b3de5ca26b43317"
+  resolved "https://github.com/CoderDojo/cp-logs-lib#5c65480d0605546cf65e6f9b9b3de5ca26b43317"
   dependencies:
     bunyan "1.8.1"
     le_node "1.4"
     lodash "4.13.1"
 
-"cp-permissions-plugin@git://github.com/CoderDojo/cp-permissions-plugin#1.0.2":
+"cp-permissions-plugin@https://github.com/CoderDojo/cp-permissions-plugin#1.0.2":
   version "1.0.2"
-  resolved "git://github.com/CoderDojo/cp-permissions-plugin#95c507a0cd47842755652605b849c2699d28dacf"
+  resolved "https://github.com/CoderDojo/cp-permissions-plugin#95c507a0cd47842755652605b849c2699d28dacf"
   dependencies:
     async "^2.0.0-rc.5"
     lodash "^4.13.1"
 
-cp-translations@^1.0.146:
-  version "1.0.146"
-  resolved "https://registry.yarnpkg.com/cp-translations/-/cp-translations-1.0.146.tgz#dee5c55263fb31c7c5c3e4e8fd573f3a05921f8d"
-  integrity sha512-h2DRtFybsA2tvcnWg8FI5ZmxyBgavMDr9F+Cp0e78VgyJJusJLPvuSSHHtUxwnYKNsrdgCWZKnPwRkwJXXJtsQ==
+cp-translations@^1.0.149:
+  version "1.0.167"
+  resolved "https://registry.yarnpkg.com/cp-translations/-/cp-translations-1.0.167.tgz#93755d9eafc15bfedb0394d2852542f2dc08fbba"
+  integrity sha512-EvV6F06SdZw8gLUPqrXYB5KuEz1zb6zogbVuif+7vUT+Ivh5T8aRIZEizoYG0l0B9SusqxGKxgnuEOejRDhvkg==
 
 cross-spawn-async@^2.0.0:
   version "2.2.5"
@@ -4576,9 +4576,9 @@ seneca-entity@0.0.1:
     jsonic "0.2.2"
     lodash "4.0.1"
 
-"seneca-kue@git://github.com/wardormeur/seneca-kue.git":
+"seneca-kue@https://github.com/wardormeur/seneca-kue.git":
   version "0.1.0"
-  resolved "git://github.com/wardormeur/seneca-kue.git#0d1dec20cbc919bd5a901cd4c0f0f025cfc8335d"
+  resolved "https://github.com/wardormeur/seneca-kue.git#0d1dec20cbc919bd5a901cd4c0f0f025cfc8335d"
   dependencies:
     async "^2.0.1"
     kue "^0.11.6"

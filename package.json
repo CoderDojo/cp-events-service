@@ -50,7 +50,7 @@
     "pg": "5.1.0",
     "postgrator": "2.8.1",
     "sanitize-html": "1.14.1",
-    "seneca": "1.4.0",
+    "seneca": "3.9.0",
     "seneca-kue": "https://github.com/wardormeur/seneca-kue.git",
     "seneca-newrelic": "wardormeur/seneca-newrelic",
     "seneca-postgresql-store": "2.3",

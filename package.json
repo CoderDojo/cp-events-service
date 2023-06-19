@@ -49,7 +49,7 @@
     "newrelic": "^2.6.0",
     "pg": "5.1.0",
     "postgrator": "2.8.1",
-    "sanitize-html": "1.14.1",
+    "sanitize-html": "2.3.2",
     "seneca": "1.4.0",
     "seneca-kue": "https://github.com/wardormeur/seneca-kue.git",
     "seneca-newrelic": "wardormeur/seneca-newrelic",
